@@ -4,6 +4,10 @@ author: [Shaun D Jackman, Benjamin P Vandervalk, Rene L Warren, Hamid Mohamadi, 
 keywords: [genome, assembly, misassembly correction, scaffolding, 10x, Chromium, linked reads, ABySS, gymnosperm, mitochondrion]
 bibliography: tigmint.bib
 csl: tigmint.csl
+rangeDelim: "&ndash;"
+eqnPrefix: "Equation"
+figPrefix: "Fig."
+tblPrefix: ["Table", "Tables"]
 permalink: /
 ---
 
@@ -42,5 +46,18 @@ Tigmint will optionally run ARCS [@Yeo_2017] and LINKS [@Warren_2015] at this po
 ## Human data set
 
 We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` from <http://bit.ly/ncbi-giab-abyss2> of the Genome in a Bottle (GIAB) HG004 Illumina paired-end and mate-pair reads [@Zook_2016]. We downloaded the 10x Genomics Chromium reads for this same individual from <http://bit.ly/giab-hg004-chromium> and used the LongRanger Basic pipeline to extract the barcodes from these reads. We ran Tigmint to correct the ABySS 2.0 assembly of HG004 using these Chromium reads with the command line `tigmint-make depth_threshold=100 draft=abyss2 reads=hg004 ref=GRCh38 G=3088269832`. The median molecule depth of this data is 163, and the IQR is 31, and we set the depth threshold of Tigmint to 100. We provided the reference genome GRCh38 to Tigmint to have it calculate assembly contiguity and correctness metrics. The script to run this analysis is available online at <https://github.com/sjackman/tigmint-data>.
+
+# Results
+
+Tigmint identified 44 breakpoints in the ABySS 2.0 assembly of the GIAB HG004 Illumina paired-end and mate-pair reads using the 10x Genomics Chromium data set from this same individual. The number of breakpoints in this assembly was reduced by 38 breakpoints by using Tigmint, and 86% of the scaffolds modified by Tigmint corrected a breakpoint identified by ABySS-samtobreak. The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics before Tigmint, after Tigmint, and after ARCS and LINKS, are shown in [@tbl:metrics].
+
+Table: The sequence contiguity and number of breakpoints reported by ABySS-samtobreak when aligned to GRCh38 using BWA-MEM of the ABySS 2.0 assemblies of GIAB HG004. {#tbl:metrics}
+
+| Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints |
+| -------------------------- | ---------: | ----------: | ----------: |
+| ABySS 2.0                  |       3.49 |        2.97 |       2,717 |
+| ABySS 2.0 + Tigmint        |       3.47 |        2.97 |       2,679 |
+| ABySS 2.0 + ARCS           |      15.51 |        7.96 |       4,130 |
+| ABySS 2.0 + Tigmint + ARCS |      16.70 |        8.31 |       4,075 |
 
 # References
