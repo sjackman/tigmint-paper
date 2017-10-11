@@ -49,7 +49,7 @@ We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` fr
 
 # Results
 
-Tigmint identified 44 breakpoints in the ABySS 2.0 assembly of the GIAB HG004 Illumina paired-end and mate-pair reads using the 10x Genomics Chromium data set from this same individual. The number of breakpoints in this assembly was reduced by 38 breakpoints by using Tigmint, and 86% of the scaffolds modified by Tigmint corrected a breakpoint identified by ABySS-samtobreak. The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics before Tigmint, after Tigmint, and after ARCS and LINKS, are shown in [@tbl:metrics].
+Breakpoints identified by Tigmint within 1,000 bp of each other were grouped together and counted as a single breakpoint. Tigmint identified 39 breakpoints in the ABySS 2.0 assembly of the GIAB HG004 Illumina paired-end and mate-pair reads using the 10x Genomics Chromium data set from this same individual. The number of breakpoints in this assembly was reduced by 38 breakpoints by using Tigmint, and 97% of the scaffolds modified by Tigmint corrected a breakpoint identified by ABySS-samtobreak. The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics before Tigmint, after Tigmint, and after ARCS and LINKS, are shown in [@tbl:metrics].
 
 Table: The sequence contiguity and number of breakpoints reported by ABySS-samtobreak when aligned to GRCh38 using BWA-MEM of the ABySS 2.0 assemblies of GIAB HG004. {#tbl:metrics}
 
