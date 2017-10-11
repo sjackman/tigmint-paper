@@ -60,4 +60,8 @@ Table: The sequence contiguity and number of breakpoints reported by ABySS-samto
 | ABySS 2.0 + ARCS           |      15.51 |        7.96 |       4,130 |
 | ABySS 2.0 + Tigmint + ARCS |      16.70 |        8.31 |       4,075 |
 
+# Discussion
+
+Tigmint uses linked reads to reduce the number of misassemblies in a genome sequence assembly. Scaffolding an assembly that has been so corrected yields an assembly that is both more contiguous and correct than an assembly that has not been corrected.
+
 # References
