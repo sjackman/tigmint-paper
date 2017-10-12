@@ -8,6 +8,7 @@ rangeDelim: "&ndash;"
 eqnPrefix: "Equation"
 figPrefix: "Fig."
 tblPrefix: ["Table", "Tables"]
+fontsize: 12pt
 permalink: /
 ---
 
@@ -49,7 +50,7 @@ We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` fr
 
 # Results
 
-Breakpoints identified by Tigmint within 1,000 bp of each other were grouped together and counted as a single breakpoint. Tigmint identified 39 breakpoints in the ABySS 2.0 assembly of the GIAB HG004 Illumina paired-end and mate-pair reads using the 10x Genomics Chromium data set from this same individual. The number of breakpoints in this assembly was reduced by 38 breakpoints by using Tigmint, and 97% of the scaffolds modified by Tigmint corrected a breakpoint identified by ABySS-samtobreak. The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics before Tigmint, after Tigmint, and after ARCS and LINKS, are shown in @tbl:metrics. The effect of varying the parameters of Tigmint on its precision and recall is shown in @tbl:precision-recall.
+Breakpoints identified by Tigmint within 1,000 bp of each other were grouped together and counted as a single breakpoint. Tigmint identified 39 breakpoints in the ABySS 2.0 assembly of the GIAB HG004 Illumina paired-end and mate-pair reads using the 10x Genomics Chromium data set from this same individual. The number of breakpoints in this assembly was reduced by 38 breakpoints by using Tigmint, and 97% of the scaffolds modified by Tigmint corrected a breakpoint identified by ABySS-samtobreak. The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics before Tigmint, after Tigmint, and after ARCS and LINKS, are shown in @tbl:metrics.
 
 Table: The sequence contiguity and number of breakpoints reported by ABySS-samtobreak when aligned to GRCh38 using BWA-MEM of the ABySS 2.0 assemblies of GIAB HG004. {#tbl:metrics}
 
@@ -60,14 +61,18 @@ Table: The sequence contiguity and number of breakpoints reported by ABySS-samto
 | ABySS 2.0 + ARCS           |      15.51 |        7.96 |       4,130 |
 | ABySS 2.0 + Tigmint + ARCS |      16.70 |        8.31 |       4,075 |
 
-Table: The effect of the parameters on the precision and recall of Tigmint. $P=2,717$ is the number of breakpoints detected by `abyss-samtobreak` in the uncorrected assembly. $TP + FP$ is the number of breakpoints identified by Tigmint. $P - TP$ is the number of breakpoints identified by ABySS-samtobreak. $TP$ is the reduction in the number of breakpoints identified by ABySS-samtobreak from the uncorrected assembly to the corrected assembly. {#tbl:precision-recall}
+The effect on the precision ($PPV$) and recall ($TPV$) of varying the Depth and Clipped parameters of Tigmint is shown in @tbl:parameters. The assembly is aligned to the reference genome using BWA-MEM. ABySS-samtobreak is used to calculate the number of breakpoints between the assembly and the reference genome. Breakpoints are composed of both misassemblies and true differences, structural variation, between the sequenced individual and the reference genome. Breakpoints due to misassemblies can be corrected, whereas breakpoints due to true structural variation cannot be corrected. The median number of mobile-element insertions, just one class of structural variants, is estimated to be 1,218 per individual [@Sudmant_2015]. For this reason, the sensitivity reported here has an upper bound that is significantly less than perfect.
 
-| Depth | Clipped | TP + FP | P - TP | TP  | FP   | Precision | Recall |
-| ----: | ------: | ------: |   ---: | --: | ---: | --------: | -----: |
-|   100 |       2 |    1792 |   2467 | 250 | 1542 |       14% |   9.2% |
-|   100 |       3 |     180 |   2613 | 104 |   76 |       58% |   3.8% |
-|   100 |       4 |      39 |   2679 |  38 |    1 |       97% |   1.4% |
-|   100 |       5 |      15 |   2703 |  14 |    1 |       93% |   0.5% |
+The number of breakpoints reported by ABySS-samtobreak for the original assembly is the total number of positives, $P = 2,717$, though some represent true structural variation and cannot be corrected. The number of breakpoints reported by Tigmint is true positives plus false positives, $TP+FP$. The reduction in the number of breakpoints identified by ABySS-samtobreak after the assembly is corrected by Tigmint is the number of true positives, $TP$. The number of breakpoints identified by Tigmint minus the true positives is the number of false positives, $FP$. The precision is $PPV = TP / (TP + FP)$, and the recall is $TPR = TP / P$. The $F_1$ score is the harmonic mean of precision and recall, $F_1 = \frac{2 \cdot PPV \cdot TPR}{PPV + TPR}$.
+
+Table: The effect on precision (PPV) and recall (TPR) of varying the Depth and Clipped parameters of Tigmint. The number of breakpoints detected by ABySS-samtobreak in the uncorrected assembly is $P = 2,717$. The number of breakpoints identified by Tigmint is $TP + FP$. The number of breakpoints identified by ABySS-samtobreak is $P - TP$. The reduction in the number of breakpoints identified by ABySS-samtobreak in the corrected assembly is the true positives, $TP$. The $F_1$ score is the harmonic mean of precision and recall. {#tbl:parameters}
+
+| Depth | Clipped | TP + FP | P - TP | TP  | FP   | PPV   | TPR   | $F_1$ |
+| ----: | ------: | ------: |   ---: | --: | ---: | ----: | ----: | ----: |
+|   100 |       2 |    1792 |   2467 | 250 | 1542 | 0.140 | 0.092 | 0.111 |
+|   100 |       3 |     180 |   2613 | 104 |   76 | 0.578 | 0.038 | 0.072 |
+|   100 |       4 |      39 |   2679 |  38 |    1 | 0.974 | 0.014 | 0.028 |
+|   100 |       5 |      15 |   2703 |  14 |    1 | 0.933 | 0.005 | 0.010 |
 
 # Discussion
 
