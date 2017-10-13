@@ -63,18 +63,18 @@ Table: The sequence contiguity and number of breakpoints reported by ABySS-samto
 
 The effect on the precision ($PPV$) and recall ($TPV$) of varying the Depth and Clipped parameters of Tigmint is shown in @fig:precision-recall and @tbl:precision-recall. The assembly is aligned to the reference genome using BWA-MEM. ABySS-samtobreak is used to calculate the number of breakpoints between the assembly and the reference genome. Breakpoints are composed of both misassemblies and true differences, structural variation, between the sequenced individual and the reference genome. Breakpoints due to misassemblies can be corrected, whereas breakpoints due to true structural variation cannot be corrected. The median number of mobile-element insertions, just one class of structural variants, is estimated to be 1,218 per individual [@Sudmant_2015]. For this reason, the sensitivity reported here has an upper bound that is significantly less than perfect.
 
-The number of breakpoints reported by ABySS-samtobreak for the original assembly is the total number of positives, $P = 2,717$, though some represent true structural variation and cannot be corrected. The number of breakpoints identified by Tigmint is the number of predicted positives, $PP = TP + FP$. The number of breakpoints remaining in the assembly after correction by Tigmint is the false negatives, $FN$. The reduction in the number of breakpoints identified by ABySS-samtobreak after the assembly is corrected by Tigmint is the number of true positives, $TP = P - FN$. The number of breakpoints identified by Tigmint minus the true positives is the number of false positives, $FP = PP - TP$. The precision is $PPV = TP / PP$, and the recall is $TPR = TP / P$. The $F_1$ score is the harmonic mean of precision and recall, $F_1 = \frac{2 \cdot PPV \cdot TPR}{PPV + TPR}$.
+The number of breakpoints reported by ABySS-samtobreak for the original assembly is the total number of positives, $P = 2,717$, though some represent true structural variation and cannot be corrected. The number of breakpoints identified by Tigmint is the number of predicted positives, $PP = TP + FP$. The number of breakpoints remaining in the assembly after correction by Tigmint is the false negatives, $FN$. The reduction in the number of breakpoints identified by ABySS-samtobreak after the assembly is corrected by Tigmint is the number of true positives, $TP = P - FN$. The number of breakpoints identified by Tigmint minus the true positives is the number of false positives, $FP = PP - TP$. The precision is $PPV = TP / PP$, and the recall is $TPR = TP / P$. The G-score, or Fowlkes–Mallows index, is the geometric mean of precision and recall, $G = \sqrt{PPV \cdot TPR}$. The G-score is maximized when Clipped is 3.
 
 ![The effect on precision (PPV) and recall (TPR) of varying the Clipped parameter of Tigmint. The Depth parameter is fixed at 100.](figures/precision-recall.png){#fig:precision-recall}
 
-Table: The effect on precision (PPV) and recall (TPR) of varying the Depth and Clipped parameters of Tigmint. The number of breakpoints detected by ABySS-samtobreak in the uncorrected assembly is $P = 2,717$. The number of breakpoints identified by Tigmint is $PP$. The number of breakpoints remaining in the assembly after correction is $FN$. The reduction in the number of breakpoints is $TP = P - FN$, and false positives is $FP = PP - TP$. {#tbl:precision-recall}
+Table: The effect on precision (PPV), recall (TPR), and G-score of varying the Depth and Clipped parameters of Tigmint. The number of breakpoints detected by ABySS-samtobreak in the uncorrected assembly is $P = 2,717$. The number of breakpoints identified by Tigmint is $PP$. The number of breakpoints remaining in the assembly after correction is $FN$. The reduction in the number of breakpoints is $TP = P - FN$. The number of false positives is $FP = PP - TP$. {#tbl:precision-recall}
 
-| Depth | Clipped | PP   | FN   | TP  | FP   | PPV   | TPR   | $F_1$ |
+| Depth | Clipped | PP   | FN   | TP  | FP   | PPV   | TPR   | G     |
 | ----: | ------: | ---: | ---: | --: | ---: | ----: | ----: | ----: |
-|   100 |       2 | 1792 | 2467 | 250 | 1542 | 0.140 | 0.092 | 0.111 |
-|   100 |       3 |  180 | 2613 | 104 |   76 | 0.578 | 0.038 | 0.072 |
-|   100 |       4 |   39 | 2679 |  38 |    1 | 0.974 | 0.014 | 0.028 |
-|   100 |       5 |   15 | 2703 |  14 |    1 | 0.933 | 0.005 | 0.010 |
+|   100 |       2 | 1792 | 2467 | 250 | 1542 | 0.140 | 0.092 | 0.113 |
+|   100 |       3 |  180 | 2613 | 104 |   76 | 0.578 | 0.038 | 0.149 |
+|   100 |       4 |   39 | 2679 |  38 |    1 | 0.974 | 0.014 | 0.117 |
+|   100 |       5 |   15 | 2703 |  14 |    1 | 0.933 | 0.005 | 0.069 |
 
 # Discussion
 
