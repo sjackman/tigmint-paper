@@ -57,9 +57,9 @@ Table: The sequence contiguity and number of breakpoints reported by ABySS-samto
 | Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints |
 | -------------------------- | ---------: | ----------: | ----------: |
 | ABySS 2.0                  |       3.49 |        2.97 |       2,717 |
-| ABySS 2.0 + Tigmint        |       3.47 |        2.97 |       2,679 |
-| ABySS 2.0 + ARCS           |      15.51 |        7.96 |       4,130 |
-| ABySS 2.0 + Tigmint + ARCS |      16.70 |        8.31 |       4,075 |
+| ABySS 2.0 + Tigmint        |       3.30 |        2.97 |       2,467 |
+| ABySS 2.0 + ARCS           |       7.57 |        5.38 |       2,753 |
+| ABySS 2.0 + Tigmint + ARCS |      11.54 |        8.98 |       2,493 |
 
 The effect on the precision ($PPV$) and recall ($TPV$) of varying the Depth and Clipped parameters of Tigmint is shown in @fig:precision-recall and @tbl:precision-recall. The assembly is aligned to the reference genome using BWA-MEM. ABySS-samtobreak is used to calculate the number of breakpoints between the assembly and the reference genome. Breakpoints are composed of both misassemblies and true differences, structural variation, between the sequenced individual and the reference genome. Breakpoints due to misassemblies can be corrected, whereas breakpoints due to true structural variation cannot be corrected. The median number of mobile-element insertions, just one class of structural variants, is estimated to be 1,218 per individual [@Sudmant_2015]. For this reason, the sensitivity reported here has an upper bound that is significantly less than perfect.
 
