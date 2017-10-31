@@ -3,7 +3,9 @@ pandoc_opt=-Fpandoc-crossref -Fpandoc-citeproc
 .DELETE_ON_ERROR:
 .SECONDARY:
 
-all: tigmint.html
+all: tigmint.html tigmint.pdf
+
+docx: tigmint.docx
 
 clean:
 	rm -f tigmint.html tigmint.pdf tigmint-supp.html tigmint-supp.pdf
@@ -20,17 +22,13 @@ tigmint.csl:
 %.pdf: %.md
 	pandoc $(pandoc_opt) -o $@ $<
 
-# Generate Table of Contents for supplemental material only
-tigmint-supp.pdf: tigmint-supp.md
-	pandoc $(pandoc_opt) --toc -o $@ $<
-
 # Render Markdown to DOCX using Pandoc.
 %.docx: %.md
 	pandoc $(pandoc_opt) -o $@ $<
 
-# Render RMarkdown to HTML using R.
-%.html: %.rmd
-	RScript -e 'rmarkdown::render("$<")'
+# Generate Table of Contents for supplemental material only
+tigmint-supp.pdf: tigmint-supp.md
+	pandoc $(pandoc_opt) --toc -o $@ $<
 
 tigmint.docx: tigmint.bib tigmint.csl
 tigmint.html: tigmint.bib tigmint.csl
