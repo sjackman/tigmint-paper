@@ -9,6 +9,7 @@ eqnPrefix: "Equation"
 figPrefix: "Fig."
 tblPrefix: ["Table", "Tables"]
 fontsize: 12pt
+geometry: margin=1.5in
 permalink: /
 ---
 
