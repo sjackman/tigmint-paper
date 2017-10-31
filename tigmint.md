@@ -50,22 +50,24 @@ We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` fr
 
 # Results
 
-Correcting the assembly with Tigmint reduces the number of breakpoints identified by ABySS-samtobreak by 250. While the scaffold NG50 decreased slightly, the scaffold NGA50 was unchanged. Correcting the assembly with Tigmint improves the correctness of the assembly without reducing its contiguity (NGA50). Scaffolding the uncorrected assembly with ARCS yields nearly a two-fold increase in NGA50, whereas correcting the assembly with Tigmint prior to scaffolding yields a three-fold increase in contiguity. Correcting the assembly and then scaffolding yields a final assembly that is both more correct and more contiguous than scaffolding without first using Tigmint [@tbl:metrics].
+Correcting the assembly with Tigmint reduces the number of breakpoints identified by ABySS-samtobreak by 250. While the scaffold NG50 decreased slightly, the scaffold NGA50 was unchanged. Correcting the assembly with Tigmint improves the correctness of the assembly without reducing its contiguity (NGA50). Scaffolding the uncorrected assembly with ARCS yields nearly a two-fold increase in NGA50, whereas correcting the assembly with Tigmint prior to scaffolding yields a three-fold increase in contiguity. Correcting the assembly and then scaffolding yields a final assembly that is both more correct and more contiguous than scaffolding without first using Tigmint, shown in @fig:metrics and @tbl:metrics.
 
-Table: The assembly contiguity (NG50 and NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint with thresholds depth=100 and Starts=2, prior to scaffolding with ARCS. {#tbl:metrics}
+![The assembly contiguity (scaffold NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint with threshold parameters depth=100 and starts=2, prior to scaffolding with ARCS.](figures/metrics.png){#fig:metrics}
 
-| Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints |
-| -------------------------- | ---------: | ----------: | ----------: |
-| ABySS 2.0                  |       3.49 |        2.97 |       2,717 |
-| ABySS 2.0 + Tigmint        |       3.30 |        2.97 |       2,467 |
-| ABySS 2.0 + ARCS           |       7.57 |        5.38 |       2,753 |
-| ABySS 2.0 + Tigmint + ARCS |      11.54 |        8.98 |       2,493 |
+Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint with threshold parameters depth=100 and starts=2, prior to scaffolding with ARCS. The reduction in the number of breakpoints from the row above it is shown in the final column. {#tbl:metrics}
+
+| Assembly               | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
+| ---------------------- | ---------: | ----------: | ----------: | --------: |
+| ABySS                  |       3.49 |        2.97 |       2,717 |        NA |
+| ABySS + Tigmint        |       3.30 |        2.97 |       2,467 |       250 |
+| ABySS + ARCS           |       7.57 |        5.38 |       2,753 |        NA |
+| ABySS + Tigmint + ARCS |      11.54 |        8.98 |       2,493 |       260 |
 
 The median molecule depth of this data is 163, and its inter-quartile range (IQR) is 31. We set the depth threshold parameter of Tigmint to 100, the median depth minus two times the IQR. The effect of varying the depth and starts threshold parameters of Tigmint on the assembly contiguity and correctness metrics is shown in @fig:parameters and @tbl:parameters. The assembly metrics are relatively insensitive to varying the depth threshold parameter. The starts threshold parameter specifies the number of molecules starting at the same position required to break the scaffold at that position. Multiple molecules starting at the same position is required to determine the position of the breakpoint. We tested requiring 2, 3, and 4 coincident molecules, and we observed the best performance requiring only two coincident molecules to break a scaffold.
 
-![The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NGA50 and number of breakpoints. The original assembly is ABySS 2.0 + ARCS without Tigmint.](figures/parameters.png){#fig:parameters}
+![The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NGA50 and number of breakpoints. The original assembly is ABySS + ARCS without Tigmint.](figures/parameters.png){#fig:parameters}
 
-Table: The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NG50 and NGA50 and number of breakpoints. The reduction in the number of breakpoints is shown in the final column. The original assembly is ABySS 2.0 + ARCS without Tigmint. {#tbl:parameters}
+Table: The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NG50 and NGA50 and number of breakpoints. The reduction in the number of breakpoints from the original is shown in the final column. The original assembly is ABySS + ARCS without Tigmint. {#tbl:parameters}
 
 |    Depth |   Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
 | -------: | -------: | ---------: | ----------: | ----------: | --------: |
