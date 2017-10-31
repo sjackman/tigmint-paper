@@ -69,7 +69,7 @@ Table: The effect of varying the depth and starts threshold parameters of Tigmin
 
 |    Depth |   Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
 | -------: | -------: | ---------: | ----------: | ----------: | --------: |
-| Original | Original |       7.57 |        5.38 |       2,753 |         0 |
+| Original | Original |       7.57 |        5.38 |       2,753 |        NA |
 |      100 |        4 |       7.87 |        5.59 |       2,701 |        52 |
 |      100 |        3 |        9.4 |        6.94 |       2,632 |       121 |
 |       80 |        2 |      11.25 |        8.93 |       2,504 |       249 |
