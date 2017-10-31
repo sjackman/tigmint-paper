@@ -59,12 +59,12 @@ Correcting the assembly with Tigmint reduces the number of breakpoints identifie
 
 Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The reduction in the number of breakpoints from the row above it is shown in the final column. {#tbl:metrics}
 
-| Assembly               | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
-| ---------------------- | ---------: | ----------: | ----------: | --------: |
-| ABySS                  |       3.49 |        2.97 |       2,717 |        NA |
-| ABySS + Tigmint        |       3.30 |        2.97 |       2,467 |       250 |
-| ABySS + ARCS           |       7.57 |        5.38 |       2,753 |        NA |
-| ABySS + Tigmint + ARCS |      11.54 |        8.98 |       2,493 |       260 |
+| Assembly         | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
+| ---------------- | ---------: | ----------: | ----------: | --------: |
+| ABySS            |       3.49 |        2.97 |       2,717 |        NA |
+| + Tigmint        |       3.30 |        2.97 |       2,467 |       250 |
+| + ARCS           |       7.57 |        5.38 |       2,753 |        NA |
+| + Tigmint + ARCS |      11.54 |        8.98 |       2,493 |       260 |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized using Circos [@Krzywinski_2009] in @fig:jupiter, which we call Jupiter plots. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffold segments on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
@@ -74,16 +74,16 @@ The median molecule depth of this data is 163, and its inter-quartile range (IQR
 
 ![The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NGA50 and number of breakpoints. The original assembly is ABySS + ARCS without Tigmint. The most contiguous and correct assemblies are found in the top-left corner.](figures/parameters.png){#fig:parameters}
 
-Table: The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NG50 and NGA50 and number of breakpoints. The reduction in the number of breakpoints from the original is shown in the final column. The original assembly is ABySS + ARCS without Tigmint. {#tbl:parameters}
+Table: The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NG50 and NGA50 and number of breakpoints. The reduction in the number of breakpoints from the original is shown in the final column. The first row is the original assembly, ABySS + ARCS without Tigmint. {#tbl:parameters}
 
-|    Depth |   Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
-| -------: | -------: | ---------: | ----------: | ----------: | --------: |
-| Original | Original |       7.57 |        5.38 |       2,753 |        NA |
-|      100 |        4 |       7.87 |        5.59 |       2,701 |        52 |
-|      100 |        3 |        9.4 |        6.94 |       2,632 |       121 |
-|       80 |        2 |      11.25 |        8.93 |       2,504 |       249 |
-|      100 |        2 |      11.54 |        8.98 |       2,493 |       260 |
-|      120 |        2 |      11.25 |        9.09 |       2,491 |       262 |
+| Depth | Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
+| ----: | -----: | ---------: | ----------: | ----------: | --------: |
+|    NA |     NA |       7.57 |        5.38 |       2,753 |        NA |
+|   100 |      4 |       7.87 |        5.59 |       2,701 |        52 |
+|   100 |      3 |        9.4 |        6.94 |       2,632 |       121 |
+|    80 |      2 |      11.25 |        8.93 |       2,504 |       249 |
+|   100 |      2 |      11.54 |        8.98 |       2,493 |       260 |
+|   120 |      2 |      11.25 |        9.09 |       2,491 |       262 |
 
 # Discussion
 
