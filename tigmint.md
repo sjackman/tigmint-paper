@@ -49,7 +49,7 @@ Tigmint will optionally run ARCS [@Yeo_2017] and LINKS [@Warren_2015] at this po
 
 ## Human data set
 
-We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` from <http://bit.ly/ncbi-giab-abyss2> of the Genome in a Bottle (GIAB) HG004 Illumina paired-end and mate-pair reads [@Zook_2016]. We downloaded the 10x Genomics Chromium reads for this same individual from <http://bit.ly/giab-hg004-chromium> and used the LongRanger Basic pipeline to extract the barcodes from these reads. We ran Tigmint to correct the ABySS 2.0 assembly of HG004 using these Chromium reads with the parameters `depth_threshold=100 starts_threshold=2`. The choice of threshold parameters is discussed in the results. Both the uncorected and corrected assembly are scaffolded using ARCS and LINKS. These assemblies are aligned to the GRCh38 reference genome using `bwa mem -xintractg`. The scaffold NGA50 and number of breakpoints are calculated using `abyss-samtobreak -G3088269832 -q10 -l500`. The script to run this analysis is available online at <https://github.com/sjackman/tigmint-data>.
+We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` from <http://bit.ly/ncbi-giab-abyss2> of the Genome in a Bottle (GIAB) HG004 Illumina paired-end and mate-pair reads [@Zook_2016]. We downloaded the 10x Genomics Chromium reads for this same individual from <http://bit.ly/giab-hg004-chromium> and used the LongRanger Basic pipeline to extract the barcodes from these reads. We ran Tigmint to correct the ABySS 2.0 assembly of HG004 using these Chromium reads with the parameters `depth_threshold=100 starts_threshold=2`. The choice of threshold parameters is discussed in the results. Both the uncorrected and corrected assembly are scaffolded using ARCS and LINKS. These assemblies are aligned to the GRCh38 reference genome using `bwa mem -xintractg`. The scaffold NGA50 and number of breakpoints are calculated using `abyss-samtobreak -G3088269832 -q10 -l500`. The script to run this analysis is available online at <https://github.com/sjackman/tigmint-data>.
 
 # Results
 
@@ -84,6 +84,8 @@ Table: The effect of varying the depth and starts threshold parameters of Tigmin
 |    80 |      2 |      11.25 |        8.93 |       2,504 |       249 |
 |   100 |      2 |      11.54 |        8.98 |       2,493 |       260 |
 |   120 |      2 |      11.25 |        9.09 |       2,491 |       262 |
+
+\newpage
 
 # Discussion
 
