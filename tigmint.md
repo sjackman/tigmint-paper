@@ -87,8 +87,6 @@ Table: The effect of varying the depth and starts threshold parameters of Tigmin
 |   100 |      2 |      11.54 |        8.98 |       2,493 |       260 |
 |   120 |      2 |      11.25 |        9.09 |       2,491 |       262 |
 
-\newpage
-
 # Discussion
 
 When aligning an assembly of an individual's genome to a reference genome of its species, we expect to see breakpoints where the assembled genome differs from the reference genome. These breakpoints are caused by both misassemblies and true differences between the individual and the reference. The median number of mobile-element insertions for example, just one class of structural variant, is estimated to be 1,218 per individual [@Sudmant_2015]. Misassemblies can be corrected by inspecting the alignments of the reads to the assembly. Correcting these misassemblies reduces the number of breakpoints when compared to the reference. Breakpoints due to true structural variation will however remain. For this reason, even a perfectly corrected assembly is expected to have a number of differences when compared to the reference.
