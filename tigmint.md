@@ -1,6 +1,6 @@
 ---
 title: "Tigmint: Correct Misassemblies Using Linked Reads From Large Molecules"
-author: [Shaun D Jackman, Benjamin P Vandervalk, Rene L Warren, Hamid Mohamadi, Justin Chu, Sarah Yeo, Lauren Coombe, Joerg Bohlmann, Steven JM Jones, Inanc Birol]
+author: [Shaun D Jackman, Justin Chu, Rene L Warren, Benjamin P Vandervalk, Lauren Coombe, Sarah Yeo, Zhuyi Xue, Hamid Mohamadi, Joerg Bohlmann, Steven JM Jones, Inanc Birol]
 keywords: [genome, assembly, misassembly correction, scaffolding, 10x, Chromium, linked reads, ABySS, gymnosperm, mitochondrion]
 bibliography: tigmint.bib
 csl: tigmint.csl
