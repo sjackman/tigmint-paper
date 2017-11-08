@@ -12,7 +12,7 @@ clean:
 
 # Download the citation style language (CSL).
 tigmint.csl:
-	curl -o $@ https://www.zotero.org/styles/bioinformatics
+	curl -o $@ https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
 
 # Render Markdown to HTML using Pandoc.
 %.html: %.md
