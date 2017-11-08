@@ -24,7 +24,7 @@ tigmint.csl:
 
 # Render Markdown to DOCX using Pandoc.
 %.docx: %.md
-	pandoc $(pandoc_opt) -o $@ $<
+	pandoc -o $@ $<
 
 # Generate Table of Contents for supplemental material only
 tigmint-supp.pdf: tigmint-supp.md
