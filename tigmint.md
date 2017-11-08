@@ -68,12 +68,12 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
 | -------------------------- | ---------: | ----------: | ----------: | --------: |
 | ABySS                      |       3.49 |        2.97 |       2,717 |        NA |
-| ABySS + Tigmint            |        3.3 |        2.97 |   **2,467** |       250 |
+| ABySS + Tigmint            |        3.3 |        2.97 |       2,467 |       250 |
 | ABySS + ARCS               |       7.57 |        5.38 |       2,753 |        NA |
-| ABySS + Tigmint + ARCS     |      11.54 |    **8.98** |       2,493 |       260 |
+| ABySS + Tigmint + ARCS     |      11.54 |        8.98 |       2,493 |       260 |
 | Supernova                  |      13.47 |        5.38 |       3,883 |        NA |
 | Supernova + Tigmint        |       9.91 |        4.41 |       3,760 |       123 |
-| Supernova + ARCS           |  **21.23** |        6.11 |       3,928 |        NA |
+| Supernova + ARCS           |      21.23 |        6.11 |       3,928 |        NA |
 | Supernova + Tigmint + ARCS |       14.2 |        5.26 |       3,818 |       110 |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
