@@ -1,6 +1,6 @@
 ---
 title: "Tigmint: Correct Assembly Errors Using Linked Reads From Large Molecules"
-author: [Shaun D Jackman, Justin Chu, Rene L Warren, Benjamin P Vandervalk, Lauren Coombe, Sarah Yeo, Zhuyi Xue, Hamid Mohamadi, Joerg Bohlmann, Steven JM Jones, Inanc Birol]
+author: Shaun D Jackman^1^ (0000-0002-9275-5966), Justin Chu^1^, Rene L Warren^1^, Benjamin P Vandervalk^1^, Lauren Coombe^1^, Sarah Yeo^1^, Zhuyi Xue^1^, Hamid Mohamadi^1^, Joerg Bohlmann^2^, Steven JM Jones^1^, Inanc Birol^1^ (0000-0003-0950-7839)
 keywords: [genome, assembly, misassembly correction, scaffolding, 10x Genomics, Chromium, linked reads, ABySS]
 bibliography: tigmint.bib
 csl: tigmint.csl
@@ -12,6 +12,11 @@ fontsize: 12pt
 geometry: margin=1.5in
 permalink: /
 ---
+
+| ^1^ British Columbia Cancer Agency, Genome Sciences Centre, Vancouver, BC V5Z 4S6, Canada
+| ^2^ University of British Columbia, Michael Smith Laboratories, Vancouver, BC V6T 1Z4, Canada
+
+sjackman@bcgsc.ca; jchu@bcgsc.ca; rwarren@bcgsc.ca; benv@bcgsc.ca; lcoombe@bcgsc.ca; sarah.yeo@alumni.ubc.ca; zxue@bcgsc.ca; hmohamadi@bcgsc.ca; bohlmann@mail.ubc.ca; sjones@bcgsc.ca; ibirol@bcgsc.ca
 
 # Abstract
 
