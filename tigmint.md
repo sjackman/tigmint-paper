@@ -17,7 +17,7 @@ permalink: /
 
 sjackman@bcgsc.ca; jchu@bcgsc.ca; rwarren@bcgsc.ca; benv@bcgsc.ca; lcoombe@bcgsc.ca; sarah.yeo@alumni.ubc.ca; zxue@bcgsc.ca; hmohamadi@bcgsc.ca; bohlmann@mail.ubc.ca; sjones@bcgsc.ca; ibirol@bcgsc.ca
 
-> **Abstract.** Genome sequencing yields the sequence of many short snippets of DNA (reads) from a genome. Genome assembly attempts to reconstruct the original genome from which these reads were derived. This task is difficult due to gaps and errors in the sequencing data, repetitive sequence in the underlying genome, and heterozygosity, and assembly errors are common. These misassemblies may be identified by comparing the sequencing data to the assembly, and by looking for discrepancies between the two. Once identified, these misassemblies may be corrected, improving the quality of the assembly. Although tools exist to identify and correct misassemblies using Illumina pair-end and mate-pair sequencing, no such tool yet exists that makes use of the long distance information of the large molecules provided by linked reads, such as those offered by the 10x Genomics Chromium platform. We have developed the tool Tigmint for this purpose. To demonstrate the effectiveness of Tigmint, we corrected an assembly of the human genome using short reads assembled with ABySS 2.0. Tigmint reduced the number of breakpoints in the ABySS assembly by 250. While scaffolding with ARCS alone nearly doubled the NGA50 of the assembly at the scaffolding stage, the combination of Tigmint and ARCS tripled the scaffold NGA50 of the assembly to nearly 9 Mbp. This notable improvement in contiguity highlights the utility of assembly correction in refining assemblies. The source code of Tigmint is available for download from <https://github.com/bcgsc/tigmint>, and is distributed under the GNU GPL v3.0 license.
+> **Abstract.** Genome sequencing yields the sequence of many short snippets of DNA (reads) from a genome. Genome assembly attempts to reconstruct the original genome from which these reads were derived. This task is difficult due to gaps and errors in the sequencing data, repetitive sequence in the underlying genome, and heterozygosity, and assembly errors are common. These misassemblies may be identified by comparing the sequencing data to the assembly, and by looking for discrepancies between the two. Once identified, these misassemblies may be corrected, improving the quality of the assembly. Although tools exist to identify and correct misassemblies using Illumina pair-end and mate-pair sequencing, no such tool yet exists that makes use of the long distance information of the large molecules provided by linked reads, such as those offered by the 10x Genomics Chromium platform. We have developed the tool Tigmint for this purpose. To demonstrate the effectiveness of Tigmint, we corrected an assembly of the human genome using short reads assembled with ABySS 2.0. Tigmint reduced the number of breakpoints in the ABySS assembly by 319. While scaffolding with ARCS alone nearly doubled the NGA50 of the assembly at the scaffolding stage, the combination of Tigmint and ARCS tripled the scaffold NGA50 of the assembly to nearly 9 Mbp. This notable improvement in contiguity highlights the utility of assembly correction in refining assemblies. The source code of Tigmint is available for download from <https://github.com/bcgsc/tigmint>, and is distributed under the GNU GPL v3.0 license.
 
 > **Keywords.** 10x Genomics Chromium reads &middot; De novo assembly &middot; Assembly correction &middot; Genome scaffolding &middot; Linked reads &middot; ABySS &middot; ARCS
 
@@ -57,9 +57,9 @@ We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` fr
 
 # Results
 
-Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces the number of breakpoints identified by ABySS-samtobreak by 250, a reduction of 9%. While the scaffold NG50 decreases slightly from 3.49 Mbp to 3.30 Mbp, the scaffold NGA50 remains unchanged; thus in this case, correcting the assembly with Tigmint improves the correctness of the assembly without substantially reducing its contiguity. However, scaffolding the uncorrected and corrected assemblies with ARCS yield markedly different results: nearly a two-fold increase (from 2.97 Mbp to 5.38 Mbp) versus a three-fold increase (to 8.98 Mbp) in NGA50, respectively. Further, correcting the assembly and then scaffolding yields a final assembly that is also more correct, as shown in @fig:metrics and @tbl:metrics.
+Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces the number of breakpoints identified by ABySS-samtobreak by 319, a reduction of 7%. While the scaffold NG50 decreases slightly from 3.49 Mbp to 3.30 Mbp, the scaffold NGA50 remains unchanged; thus in this case, correcting the assembly with Tigmint improves the correctness of the assembly without substantially reducing its contiguity. However, scaffolding the uncorrected and corrected assemblies with ARCS yield markedly different results: nearly a two-fold increase (from 2.88 Mbp to 5.34 Mbp) versus a three-fold increase (to 8.69 Mbp) in NGA50, respectively. Further, correcting the assembly and then scaffolding yields a final assembly that is also more correct, as shown in @fig:metrics and @tbl:metrics.
 
-Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of breakpoints by over a hundred (a reduction of 3%), and after scaffolding the corrected assembly with ARCS, we see a slight reduction (2%) in NGA50 compared to the original Supernova assembly. Without Tigmint, the ABySS + ARCS assembly has a similar contiguity (scaffold NGA50) and fewer breakpoints than the Supernova assembly. The ABySS + Tigmint + ARCS assembly is both more contiguous and has fewer breakpoints compared to the Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, we do not expect significant gains from using these same data to correct the Supernova assembly. The Supernova assembly however has not made use of the mate-pair reads, and correcting the Supernova assembly with mate-pair reads may be an interesting area for future development of Tigmint.
+Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of breakpoints by 167 (a reduction of 3%), and after scaffolding the corrected assembly with ARCS, we see a slight reduction (2%) in NGA50 compared to the original Supernova assembly. Without Tigmint, the ABySS + ARCS assembly has a similar contiguity (scaffold NGA50) and fewer breakpoints than the Supernova assembly. The ABySS + Tigmint + ARCS assembly is both more contiguous and has fewer breakpoints compared to the Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, we do not expect significant gains from using these same data to correct the Supernova assembly. The Supernova assembly however has not made use of the mate-pair reads, and correcting the Supernova assembly with mate-pair reads may be an interesting area for future development of Tigmint.
 
 ![The assembly contiguity (scaffold NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left corner.](figures/metrics.png){#fig:metrics}
 
@@ -67,14 +67,14 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 
 | Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
 | -------------------------- | ---------: | ----------: | ----------: | --------: |
-| ABySS                      |       3.49 |        2.97 |       2,717 |        NA |
-| ABySS + Tigmint            |       3.30 |        2.97 |       2,467 |       250 |
-| ABySS + ARCS               |       7.57 |        5.38 |       2,753 |        NA |
-| ABySS + Tigmint + ARCS     |      11.54 |        8.98 |       2,493 |       260 |
-| Supernova                  |      13.47 |        5.38 |       3,883 |        NA |
-| Supernova + Tigmint        |       9.91 |        4.41 |       3,760 |       123 |
-| Supernova + ARCS           |      21.23 |        6.11 |       3,928 |        NA |
-| Supernova + Tigmint + ARCS |      14.20 |        5.26 |       3,818 |       110 |
+| ABySS                      |       3.49 |        2.88 |       4,770 |        NA |
+| ABySS + Tigmint            |       3.30 |        2.88 |       4,451 |       319 |
+| ABySS + ARCS               |       7.57 |        5.34 |       4,826 |        NA |
+| ABySS + Tigmint + ARCS     |      11.54 |        8.69 |       4,485 |       341 |
+| Supernova                  |      13.47 |        4.39 |       7,549 |        NA |
+| Supernova + Tigmint        |       9.91 |        3.51 |       7,382 |       167 |
+| Supernova + ARCS           |      21.23 |        4.91 |       7,596 |        NA |
+| Supernova + Tigmint + ARCS |      14.20 |        4.31 |       7,437 |       159 |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
@@ -88,12 +88,12 @@ Table: The effect of varying the depth and starts threshold parameters of Tigmin
 
 | Depth | Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
 | ----: | -----: | ---------: | ----------: | ----------: | --------: |
-|    NA |     NA |       7.57 |        5.38 |       2,753 |        NA |
-|   100 |      4 |       7.87 |        5.59 |       2,701 |        52 |
-|   100 |      3 |        9.4 |        6.94 |       2,632 |       121 |
-|    80 |      2 |      11.25 |        8.93 |       2,504 |       249 |
-|   100 |      2 |      11.54 |        8.98 |       2,493 |       260 |
-|   120 |      2 |      11.25 |        9.09 |       2,491 |       262 |
+|    NA |     NA |       7.57 |        5.34 |       4,826 |        NA |
+|   100 |      4 |       7.87 |        5.55 |       4,783 |        43 |
+|   100 |      3 |       9.40 |        6.90 |       4,694 |       132 |
+|    80 |      2 |      11.25 |        8.67 |       4,506 |       320 |
+|   100 |      2 |      11.54 |        8.69 |       4,485 |       341 |
+|   120 |      2 |      11.25 |        8.85 |       4,474 |       352 |
 
 # Discussion
 
