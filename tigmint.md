@@ -65,24 +65,24 @@ Correcting the DISCOVARdenovo + BESST assembly reduces the number of breakpoints
 
 Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of breakpoints by 167 (a reduction of 3%), and after scaffolding the corrected assembly with ARCS, we see a slight reduction (2%) in NGA50 compared to the original Supernova assembly. Without Tigmint, the ABySS + ARCS assembly has a similar contiguity (scaffold NGA50) and fewer breakpoints than the Supernova assembly. The ABySS + Tigmint + ARCS assembly is both more contiguous and has fewer breakpoints compared to the Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, we do not expect significant gains from using these same data to correct the Supernova assembly. The Supernova assembly however has not made use of the mate-pair reads, and correcting the Supernova assembly with mate-pair reads may be an interesting area for future development of Tigmint.
 
-![The assembly contiguity (scaffold NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left corner. The DISCOVARdenovo + BESST assembly is labeled DISCOVAR.](figures/metrics.png){#fig:metrics}
+![The assembly contiguity (scaffold NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left corner. The DISCOVARdenovo + BESST assembly is labeled DISCOVAR. The Supernova assembly used only the linked reads.](figures/metrics.png){#fig:metrics}
 
-Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The reduction in the number of breakpoints from the row above it is shown in the final column. {#tbl:metrics}
+Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of breakpoints) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The reduction in the number of breakpoints from the row above is shown in the final column. The DISCOVARdenovo + BESST assembly is labeled DISCOVAR. The Supernova assembly used only the linked reads. {#tbl:metrics}
 
-| Assembly                          | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
-| --------------------------------- | ---------: | ----------: | ----------: | --------: |
-| ABySS                             |       3.49 |        2.88 |       4,770 |        NA |
-| ABySS + Tigmint                   |       3.30 |        2.88 |       4,451 |       319 |
-| ABySS + ARCS                      |       7.57 |        5.34 |       4,826 |        NA |
-| ABySS + Tigmint + ARCS            |      11.54 |        8.69 |       4,485 |       341 |
-| DISCOVAR + BESST                  |       6.92 |        3.57 |       5,680 |        NA |
-| DISCOVAR + BESST + Tigmint        |       6.54 |        3.53 |       5,566 |       114 |
-| DISCOVAR + BESST + ARCS           |      18.15 |        6.09 |       5,694 |        NA |
-| DISCOVAR + BESST + Tigmint + ARCS |      19.39 |        6.62 |       5,577 |       117 |
-| Supernova                         |      13.47 |        4.39 |       7,549 |        NA |
-| Supernova + Tigmint               |       9.91 |        3.51 |       7,382 |       167 |
-| Supernova + ARCS                  |      21.23 |        4.91 |       7,596 |        NA |
-| Supernova + Tigmint + ARCS        |      14.20 |        4.31 |       7,437 |       159 |
+| Assembly                   | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints |  Reduction |
+| -------------------------- | ---------: | ----------: | ----------: | ---------: |
+| ABySS                      |       3.49 |        2.88 |       4,770 |         NA |
+| ABySS + Tigmint            |       3.30 |        2.88 |       4,451 | 319 (6.7%) |
+| ABySS + ARCS               |       7.57 |        5.34 |       4,826 |         NA |
+| ABySS + Tigmint + ARCS     |      11.54 |        8.69 |       4,485 | 341 (7.1%) |
+| DISCOVAR                   |       6.92 |        3.57 |       5,680 |         NA |
+| DISCOVAR + Tigmint         |       6.54 |        3.53 |       5,566 | 114 (2.0%) |
+| DISCOVAR + ARCS            |      18.15 |        6.09 |       5,694 |         NA |
+| DISCOVAR + Tigmint + ARCS  |      19.39 |        6.62 |       5,577 | 117 (2.1%) |
+| Supernova                  |      13.47 |        4.39 |       7,549 |         NA |
+| Supernova + Tigmint        |       9.91 |        3.51 |       7,382 | 167 (2.2%) |
+| Supernova + ARCS           |      21.23 |        4.91 |       7,596 |         NA |
+| Supernova + Tigmint + ARCS |      14.20 |        4.31 |       7,437 | 159 (2.1%) |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
