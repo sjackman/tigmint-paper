@@ -94,14 +94,14 @@ The median molecule depth of this data is 163, and its inter-quartile range (IQR
 
 Table: The effect of varying the depth and starts threshold parameters of Tigmint on the scaffold NG50 and NGA50 and number of breakpoints. The first row is the original assembly, ABySS + ARCS without Tigmint. The reduction in the number of breakpoints from the original assembly is shown in the final column. {#tbl:parameters}
 
-| Depth | Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints | Reduction |
-| ----: | -----: | ---------: | ----------: | ----------: | --------: |
-|    NA |     NA |       7.57 |        5.34 |       4,826 |        NA |
-|   100 |      4 |       7.87 |        5.55 |       4,783 |        43 |
-|   100 |      3 |       9.40 |        6.90 |       4,694 |       132 |
-|    80 |      2 |      11.25 |        8.67 |       4,506 |       320 |
-|   100 |      2 |      11.54 |        8.69 |       4,485 |       341 |
-|   120 |      2 |      11.25 |        8.85 |       4,474 |       352 |
+|    Depth |   Starts | NG50 (Mbp) | NGA50 (Mbp) | Breakpoints |   Reduction |
+| -------: | -------: | ---------: | ----------: | ----------: | ----------: |
+| Original | Original |       7.57 |        5.34 |       4,826 |          NA |
+|      100 |        4 |       7.87 |        5.55 |       4,783 |  43 (0.89%) |
+|      100 |        3 |       9.40 |        6.90 |       4,694 | 132 (2.74%) |
+|       80 |        2 |      11.25 |        8.67 |       4,506 | 320 (6.63%) |
+|      100 |        2 |      11.54 |        8.69 |       4,485 | 341 (7.07%) |
+|      120 |        2 |      11.25 |        8.85 |       4,474 | 352 (7.29%) |
 
 # Discussion
 
