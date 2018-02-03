@@ -55,11 +55,15 @@ Most software used in these analyses were installed using Linuxbrew [@Jackman_20
 
 # Results
 
-Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces the number of misassemblies identified by QUAST by 216, a reduction of 32%. While the scaffold NG50 decreases slightly from 3.65 Mbp to 3.47 Mbp, the scaffold NGA50 remains unchanged; thus in this case, correcting the assembly with Tigmint improves the correctness of the assembly without substantially reducing its contiguity. However, scaffolding the uncorrected and corrected assemblies with ARCS yield markedly different results: a two-fold increase in NGA50 from 3.03 Mbp to 6.49 Mbp without Tigmint versus a nearly four-fold increase in NGA50 to 11.86 Mbp with Tigmint. Further, correcting the assembly and then scaffolding yields a final assembly that is also more correct, as shown in @fig:metrics and @tbl:metrics.
+Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces the number of misassemblies identified by QUAST by 216, a reduction of 27%. While the scaffold NG50 decreases slightly from 3.65 Mbp to 3.47 Mbp, the scaffold NGA50 remains unchanged; thus in this case, correcting the assembly with Tigmint improves the correctness of the assembly without substantially reducing its contiguity. However, scaffolding the uncorrected and corrected assemblies with ARCS yield markedly different results: a 2.5-fold increase in NGA50 from 3.1 Mbp to 7.9 Mbp without Tigmint versus a more than five-fold increase in NGA50 to 16.4 Mbp with Tigmint. Further, correcting the assembly and then scaffolding yields a final assembly that is also more correct, as shown in @fig:metrics and @tbl:metrics.
 
-Correcting the DISCOVARdenovo + BESST assembly reduces the number of misassemblies by 65, a reduction of 13%. Using Tigmint to correct the assembly before scaffolding with ARCS yields an increase in NGA50 of 19% over using ARCS without Tigmint. As with the ABySS assembly, the DISCOVARdenovo + BESST + Tigmint + ARCS assembly is both more contiguous and has fewer misassemblies than the DISCOVARdenovo + BESST assembly. With two unrelated assembly pipelines, using Tigmint and ARCS together improves both the contiguity and correctness of the assembly.
+Correcting the DISCOVARdenovo + BESST assembly reduces the number of misassemblies by 75, a reduction of 13%. Using Tigmint to correct the assembly before scaffolding with ARCS yields an increase in NGA50 of 28% over using ARCS without Tigmint. Correcting the DISCOVARdenovo + ABySS-Scaffold assembly reduces the number of misassemblies by 35 (5%), after which scaffolding with ARCS improves the NGA50 to 23.7 Mbp, 2.6 times the original assembly and a 40% improvement over ARCS without Tigmint.
 
-Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of misassemblies by 100, a reduction of 10%, and after scaffolding the corrected assembly with ARCS, we see a slight 1% increase in NGA50 and slight 1% decrease in misassemblies compared to the original Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, we do not expect significant gains from using these same data to correct and scaffold the Supernova assembly. The Supernova assembly however has not made use of the mate-pair reads, and correcting the Supernova assembly with mate-pair reads may be an interesting area for future development of Tigmint.
+The assembly with the fewest misassemblies is DISCOVAR + BESST + Tigmint, and the assembly with the largest NGA50 is DISCOVAR + ABySS-Scaffold + Tigmint + ARCS. The DISCOVARdenovo + BESST + Tigmint + ARCS has both good contiguity and few misassemblies and is the only other assembly on the Pareto frontier maximizing NGA50 and minimizing misassemblies.
+
+Tigmint and ARCS together improve the NGA50 of the Canu assembly by more than double and improve the NGA50 of the Falcon assembly by nearly triple, and both assemblies have fewer misassemblies than the original assembly. As with the ABySS assembly, using Tigmint and ARCS together improves both the contiguity and correctness of the assembly.
+
+Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of misassemblies by 82, a reduction of 8%, and after scaffolding the corrected assembly with ARCS, we see a slight (< 1%) decrease in misassemblies and NGA50 compared to the original Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, we do not expect significant gains from using these same data to correct and scaffold the Supernova assembly. The Supernova assembly however has not made use of the mate-pair reads, and correcting the Supernova assembly with mate-pair reads may be an interesting area for future development of Tigmint.
 
 ![The assembly contiguity (scaffold NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left corner. The DISCOVARdenovo + BESST assembly is labeled DISCOVAR. The Supernova assembly used only the linked reads.](figures/metrics.png){#fig:metrics}
 
@@ -73,23 +77,23 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | ABySS+Tigmint+ARCS       |      26.39 |       16.43 |           641 | 182 (22.1%) |
 | DISCO+ABySS              |      10.55 |        9.04 |           701 |          NA |
 | DISCO+ABySS+Tigmint      |      10.16 |        9.04 |           666 |   35 (5.0%) |
-| DISCO+ABySS+ARCS         |       29.2 |       17.05 |           829 |          NA |
+| DISCO+ABySS+ARCS         |      29.20 |       17.05 |           829 |          NA |
 | DISCO+ABySS+Tigmint+ARCS |      35.31 |       23.68 |           804 |   25 (3.0%) |
 | DISCO+BESST              |       7.01 |        6.14 |           568 |          NA |
 | DISCO+BESST+Tigmint      |       6.77 |        6.14 |           493 |  75 (13.2%) |
 | DISCO+BESST+ARCS         |      27.64 |       15.14 |           672 |          NA |
-| DISCO+BESST+Tigmint+ARCS |      33.43 |        19.4 |           603 |  69 (10.3%) |
+| DISCO+BESST+Tigmint+ARCS |      33.43 |       19.40 |           603 |  69 (10.3%) |
 | Supernova                |      38.48 |       12.65 |         1,005 |          NA |
 | Supernova+Tigmint        |      17.72 |       11.43 |           923 |   82 (8.2%) |
 | Supernova+ARCS           |      39.63 |       13.24 |         1,052 |          NA |
-| Supernova+Tigmint+ARCS   |      27.35 |        12.6 |           998 |   54 (5.1%) |
+| Supernova+Tigmint+ARCS   |      27.35 |       12.60 |           998 |   54 (5.1%) |
 | Falcon                   |       4.56 |        4.21 |         3,640 |          NA |
 | Falcon+Tigmint           |       4.45 |        4.21 |         3,444 |  196 (5.4%) |
 | Falcon+ARCS              |      18.14 |        9.71 |         3,801 |          NA |
 | Falcon+Tigmint+ARCS      |      22.52 |       11.97 |         3,574 |  227 (6.0%) |
-| Canu                     |       7.06 |         5.4 |         1,688 |          NA |
+| Canu                     |       7.06 |        5.40 |         1,688 |          NA |
 | Canu+Tigmint             |       6.87 |        5.38 |         1,600 |   88 (5.2%) |
-| Canu+ARCS                |       19.7 |       10.12 |         1,736 |          NA |
+| Canu+ARCS                |      19.70 |       10.12 |         1,736 |          NA |
 | Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
