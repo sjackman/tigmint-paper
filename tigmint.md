@@ -65,20 +65,32 @@ Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces
 
 Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The reduction in the number of misassemblies from the row above is shown in the final column. The DISCOVARdenovo + BESST assembly is labeled DISCOVAR. The Supernova assembly used only the linked reads. {#tbl:metrics}
 
-| Assembly               | NG50 (Mbp) | NGA50 (Mbp) | Misassemblies | Reduction |
-| ---------------------- | ---------: | ----------: | ------------: | --------: |
-| ABySS                  |       3.65 |        3.03 |           678 |        NA |
-| ABySS+Tigmint          |       3.47 |        3.03 |           462 | 216 (32%) |
-| ABySS+ARCS             |       9.91 |        6.49 |           805 |        NA |
-| ABySS+Tigmint+ARCS     |      26.39 |       11.86 |           645 | 160 (20%) |
-| DISCOVAR               |       7.01 |        5.93 |           501 |        NA |
-| DISCOVAR+Tigmint       |       6.77 |        5.93 |           436 |  65 (13%) |
-| DISCOVAR+ARCS          |      27.64 |       13.66 |           616 |        NA |
-| DISCOVAR+Tigmint+ARCS  |      33.43 |       16.28 |           545 |  71 (12%) |
-| Supernova              |      38.48 |        9.55 |         1,045 |        NA |
-| Supernova+Tigmint      |      17.72 |        8.58 |           945 | 100 (10%) |
-| Supernova+ARCS         |      39.63 |        9.96 |         1,091 |        NA |
-| Supernova+Tigmint+ARCS |      27.35 |        9.65 |         1,031 |   60 (5%) |
+| Assembly                 | NG50 (Mbp) | NGA50 (Mbp) | Misassemblies |   Reduction |
+| ------------------------ | ---------: | ----------: | ------------: | ----------: |
+| ABySS                    |       3.65 |        3.09 |           790 |          NA |
+| ABySS+Tigmint            |       3.47 |        3.09 |           574 | 216 (27.3%) |
+| ABySS+ARCS               |       9.91 |        7.86 |           823 |          NA |
+| ABySS+Tigmint+ARCS       |      26.39 |       16.43 |           641 | 182 (22.1%) |
+| DISCO+ABySS              |      10.55 |        9.04 |           701 |          NA |
+| DISCO+ABySS+Tigmint      |      10.16 |        9.04 |           666 |   35 (5.0%) |
+| DISCO+ABySS+ARCS         |       29.2 |       17.05 |           829 |          NA |
+| DISCO+ABySS+Tigmint+ARCS |      35.31 |       23.68 |           804 |   25 (3.0%) |
+| DISCO+BESST              |       7.01 |        6.14 |           568 |          NA |
+| DISCO+BESST+Tigmint      |       6.77 |        6.14 |           493 |  75 (13.2%) |
+| DISCO+BESST+ARCS         |      27.64 |       15.14 |           672 |          NA |
+| DISCO+BESST+Tigmint+ARCS |      33.43 |        19.4 |           603 |  69 (10.3%) |
+| Supernova                |      38.48 |       12.65 |         1,005 |          NA |
+| Supernova+Tigmint        |      17.72 |       11.43 |           923 |   82 (8.2%) |
+| Supernova+ARCS           |      39.63 |       13.24 |         1,052 |          NA |
+| Supernova+Tigmint+ARCS   |      27.35 |        12.6 |           998 |   54 (5.1%) |
+| Falcon                   |       4.56 |        4.21 |         3,640 |          NA |
+| Falcon+Tigmint           |       4.45 |        4.21 |         3,444 |  196 (5.4%) |
+| Falcon+ARCS              |      18.14 |        9.71 |         3,801 |          NA |
+| Falcon+Tigmint+ARCS      |      22.52 |       11.97 |         3,574 |  227 (6.0%) |
+| Canu                     |       7.06 |         5.4 |         1,688 |          NA |
+| Canu+Tigmint             |       6.87 |        5.38 |         1,600 |   88 (5.2%) |
+| Canu+ARCS                |       19.7 |       10.12 |         1,736 |          NA |
+| Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
