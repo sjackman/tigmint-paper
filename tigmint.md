@@ -118,6 +118,12 @@ The effect of varying the window and spanning molecules parameters of Tigmint on
 
 ![The effect of varying the window and span parameters of Tigmint on the scaffold NGA50 and number of misassemblies for two assemblies, ABySS and DISCOVARdenovo + BESST.](figures/parameters.png){#fig:parameters}
 
+## Run time and memory usage
+
+The primary steps of running Tigmint are mapping the reads to the assembly, determining the start and end coordinate of each molecule, and finally identifying the discrepant regions and correcting the assembly. Mapping the reads to the DISCOVAR + ABySS-Scaffold assembly with BWA-MEM and concurrently sorting by barcode using Samtools [@Li_2009] in a pipe required 5.5 hours of wall-clock time and 17.2 GB of RAM (RSS) using 48 threads on a 24-core hyper-threaded computer. Determining the start and end coordinates of each molecule required 3.25 hours of wall-clock time and 0.08 GB of RAM (RSS) using a single thread. Finally, identifying the discrepant regions of the assembly, correcting the assembly, and creating a new FASTA file required 7 minutes and 3.3 GB of RAM (RSS).
+
+The slowest step of mapping the reads to the assembly could be made faster by using light-weight mapping rather than full alignment, since Tigmint needs only the positions of the reads, not their alignments. The speed of determining the start and end coordinates of each molecule could likely be improved by rewriting this stage in C++, currently implemented in Python. The final step of identifying the discrepant regions of the assembly is not a bottle neck.
+
 # Discussion
 
 When aligning an assembly of an individual's genome to a reference genome of its species, we expect to see breakpoints where the assembled genome differs from the reference genome. These breakpoints are caused by both misassemblies and true differences between the individual and the reference. The median number of mobile-element insertions for example, just one class of structural variant, is estimated to be 1,218 per individual [@Sudmant_2015]. Misassemblies can be corrected by inspecting the alignments of the reads to the assembly and cutting the scaffolds at positions not supported by the reads. Misassemblies due to true structural variation will however remain. For this reason, even a perfectly corrected assembly is expected to have a number of differences when compared to the reference.
