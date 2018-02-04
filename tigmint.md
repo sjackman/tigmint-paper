@@ -106,13 +106,13 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | Canu+ARCS                |      19.70 |       10.12 |         1,736 |          NA |
 | Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
 
-# Large-scale correctness
+## Large-scale correctness
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
 ![The alignments to the reference genome of the ABySS assembly before and after Tigmint. Translocations are visible as lines criss-crossing the large coloured bands of concordant alignments. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter}
 
-# Parameters
+## Parameters
 
 The effect of varying the window and spanning molecules parameters of Tigmint on the assembly contiguity and correctness metrics is shown in @fig:parameters. The assembly metrics of both the ABySS and DISCOVARdenovo + BESST assemblies after correction with Tigmint are rather insensitive to the spanning molecules parameter for any value up to 50 and for the window parameter for any value up to 2,000 bp. Larger values of these parameters yield worse assemblies for the ABySS assembly, with little effect on the DISCOVAR assembly. We selected default values of span = 20 and window = 2000. When varying the spanning molecules parameter, the window parameter is fixed at 2000, and when varying the window parameter, the spanning molecules parameter is fixed a 20. The median molecule depth of this data is 163, computed using Bedtools [@Quinlan_2010], and its inter-quartile range (IQR) is 31.
 
