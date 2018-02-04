@@ -63,7 +63,7 @@ Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces t
 
 Correcting the DISCOVARdenovo + BESST assembly reduces the number of misassemblies by 75, a reduction of 13%. Using Tigmint to correct the assembly before scaffolding with ARCS yields an increase in NGA50 of 28% over using ARCS without Tigmint. Correcting the DISCOVARdenovo + ABySS-Scaffold assembly reduces the number of misassemblies by 35 (5%), after which scaffolding with ARCS improves the NGA50 to 23.7 Mbp, 2.6 times the original assembly and a 40% improvement over ARCS without Tigmint.
 
-There are three assemblies on the Pareto frontier maximizing NGA50 and minimizing misassemblies. The assembly with the fewest misassemblies is DISCOVAR + BESST + Tigmint. The assembly with the largest NGA50 is DISCOVAR + ABySS-Scaffold + Tigmint + ARCS. The only other assembly on the Pareto frontier is DISCOVARdenovo + BESST + Tigmint + ARCS, which strikes a good balance between both good contiguity and few misassemblies.
+Three assemblies are on the Pareto frontier maximizing NGA50 and minimizing misassemblies. The assembly with the fewest misassemblies is DISCOVAR + BESST + Tigmint. The assembly with the largest NGA50 is DISCOVAR + ABySS-Scaffold + Tigmint + ARCS. The only other assembly on the Pareto frontier is DISCOVARdenovo + BESST + Tigmint + ARCS, which strikes a good balance between both good contiguity and few misassemblies.
 
 ## Correcting an assembly of linked reads
 
