@@ -105,12 +105,20 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | Canu+Tigmint             |       6.87 |        5.38 |         1,600 |   88 (5.2%) |
 | Canu+ARCS                |      19.70 |       10.12 |         1,736 |          NA |
 | Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
+| Simulated                |          9 |        8.28 |           272 |          NA |
+| Simulated+Tigmint        |       8.61 |        8.28 |           217 |  55 (20.2%) |
+| Simulated+ARCS           |      23.37 |       17.09 |           365 |          NA |
+| Simulated+Tigmint+ARCS   |      30.24 |       24.98 |           320 |  45 (12.3%) |
 
 ## Large-scale correctness
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot (<https://github.com/JustinChu/JupiterPlot>), which makes use of Circos [@Krzywinski_2009]. The reference chromosomes are shown on the left in colour, and the assembly scaffolds are shown on the right in gray. The scaffolds on the right are arranged according the position of their best alignment to the reference. Chimeric scaffolds result in split alignments that manifest as lines criss-crossing the large coloured bands of concordant alignments. Small-scale structural variation is not visible due to the scale, but translocations (likely misassemblies) of sequences larger than 20 kbp are readily visible. A number of these split alignments are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
 ![The alignments to the reference genome of the ABySS assembly before and after Tigmint. Translocations are visible as lines criss-crossing the large coloured bands of concordant alignments. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter}
+
+## Simulated data
+
+We simulated 434 million 2x250 paired-end and 350 million 2x125 mate-pair read pairs using wgsim of samtools and 524 million 2x150 linked read pairs using LRSim [@Luo_2017], emulating the HG004 data set. We assembled these reads using ABySS 2.0.2, and scaffolded the assembly with ARCS with and without using Tigmint to first correct the assembly. The assembly metrics are shown in @tbl:metrics. We see similar performance to the real data, a 20% reduction in misassemblies after running Tigmint, and a three-fold increase in NGA50 after Tigmint and ARCS. Since no structural rearrangements are present in the simulated data, each misassembly identified by QUAST ought to be a true misassembly, allowing us to calculate precision and recall. For the parameters used with the real data, window = 2000 and span = 20, Tigmint makes 210 cuts in scaffolds at least 3 kbp (QUAST does not analyze shorter scaffolds), and corrects 55 misassemblies of the 272 identified by QUAST, yielding precision and recall of $\textrm{PPV} = \frac{55}{210} = 0.26$ and $\textrm{TPR} = \frac{55}{272} = 0.20$. Using instead window = 1000, Tigmint makes only 58 cuts and yet corrects 51 misassemblies, making its precision and recall $\textrm{PPV} = \frac{51}{58} = 0.88$ and $\textrm{TPR} = \frac{51}{272} = 0.19$, a marked improvement in precision with only a small decrease in recall. The scaffold NGA50 after ARCS is 24.7 Mbp, only 1% less than with window = 2000. Since the final assembly metrics are similar, using a smaller value for the window size parameter may avoid unnecessary cuts. Small-scale misassemblies cannot be detected by Tigmint, such as collapsed repeats, and relocations and inversions smaller than 50 kbp, the distance allowed between linked reads in a molecule. We intend to investigate the remaining misassemblies identified by QUAST to assess their nature, and determine whether some could be detected by Tigmint with further development.
 
 ## Parameters
 
