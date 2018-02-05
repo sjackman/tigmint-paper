@@ -1,6 +1,6 @@
 ---
 title: "Tigmint: Correct Assembly Errors Using Linked Reads From Large Molecules"
-author: [Shaun D Jackman^1^ (0000-0002-9275-5966), Justin Chu^1^, Rene L Warren^1^, Benjamin P Vandervalk^1^, Lauren Coombe^1^, Sarah Yeo^1^, Zhuyi Xue^1^, Hamid Mohamadi^1^, Joerg Bohlmann^2^, Steven JM Jones^1^, Inanc Birol^1^ (0000-0003-0950-7839)]
+author: [Shaun D Jackman^1^ (0000-0002-9275-5966), Lauren Coombe^1^, Justin Chu^1^, Rene L Warren^1^, Benjamin P Vandervalk^1^, Sarah Yeo^1^, Zhuyi Xue^1^, Hamid Mohamadi^1^, Joerg Bohlmann^2^, Steven JM Jones^1^, Inanc Birol^1^ (0000-0003-0950-7839)]
 bibliography: tigmint.bib
 csl: tigmint.csl
 rangeDelim: "&ndash;"
