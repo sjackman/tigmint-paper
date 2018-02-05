@@ -63,7 +63,7 @@ The assemblies of SMS reads have contig NGA50s in the megabases. Tigmint and ARC
 
 ![Assemblies of Nanopore reads with Canu and PacBio reads with Falcon with and without correction using Tigmint prior to scaffolding with ARCS.](figures/metrics-sms.png){#fig:metrics-sms}
 
-Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS.
+Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. {#tbl:metrics}
 
 | Assembly                 | NG50 (Mbp) | NGA50 (Mbp) | Misassemblies |   Reduction |
 | ------------------------ | ---------: | ----------: | ------------: | ----------: |
@@ -91,7 +91,7 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | Canu+Tigmint             |       6.87 |        5.38 |         1,600 |   88 (5.2%) |
 | Canu+ARCS                |      19.70 |       10.12 |         1,736 |          NA |
 | Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
-| Simulated                |          9 |        8.28 |           272 |          NA |
+| Simulated                |       9.00 |        8.28 |           272 |          NA |
 | Simulated+Tigmint        |       8.61 |        8.28 |           217 |  55 (20.2%) |
 | Simulated+ARCS           |      23.37 |       17.09 |           365 |          NA |
 | Simulated+Tigmint+ARCS   |      30.24 |       24.98 |           320 |  45 (12.3%) |
