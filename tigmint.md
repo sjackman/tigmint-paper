@@ -59,7 +59,7 @@ Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces
 
 The assemblies of SMS reads have contig NGA50s in the megabases. Tigmint and ARCS together improve the scaffold NGA50 of the Canu assembly by more than double to nearly 11 Mbp and improve the scaffold NGA50 of the Falcon assembly by nearly triple to 12 Mbp, and both assemblies have fewer misassemblies than their original assembly, shown in @fig:metrics-sms. Using Tigmint and ARCS together improves both the contiguity and correctness over the original assembly. Using linked reads in combination with long reads, we can achieve an assembly that achieves both a high contig NGA50 as well as high scaffold NGA50, which is not currently possible with either technology alone.
 
-![The assembly contiguity (scaffold NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left corner.](figures/metrics.png){#fig:metrics}
+![Assembly contiguity and correctness metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left. Supernova used linked reads only, whereas the others used paired end and mate pair reads.](figures/metrics.png){#fig:metrics}
 
 ![Assemblies of Nanopore reads with Canu and PacBio reads with Falcon with and without correction using Tigmint prior to scaffolding with ARCS.](figures/metrics-sms.png){#fig:metrics-sms}
 
