@@ -32,7 +32,7 @@ sjackman@bcgsc.ca; lcoombe@bcgsc.ca; jchu@bcgsc.ca; rwarren@bcgsc.ca; benv@bcgsc
 
 \newpage
 
-# Introduction
+# Background
 
 Assemblies of short read sequencing data are easily confounded by repetitive sequences larger than the fragment size of the sequencing library. When the size of a repeat exceeds the library fragment size, the contig comes to an end in the best case, or results in misassembled sequence in the worst case. Misassemblies not only complicate downstream analyses, but also limit the contiguity of the assembly, when incorrectly assembled sequences prevent joining their adjacent and correctly assembled sequences during assembly scaffolding.
 
@@ -44,7 +44,7 @@ In *de novo* sequencing projects, it is challenging yet important to ensure the 
 
 Tigmint first aligns reads to the assembly, and infers the extents of the large DNA molecules from these alignments. It then searches for atypical drops in physical molecule coverage. Since the physical coverage of the large molecules is more consistent and less prone to coverage dropouts than that of the short read sequencing data, it can be used to reveal the positions of possible misassemblies. Linked reads may be used to scaffold the corrected assembly with ARCS [@Yeo_2017] to identify contig ends sharing barcodes, and either ABySS-Scaffold (included with ABySS) or LINKS [@Warren_2015] to merge sequences of contigs into scaffolds.
 
-# Methods
+# Implementation
 
 ## Algorithm
 
@@ -122,6 +122,8 @@ The primary steps of running Tigmint are mapping the reads to the assembly, dete
 # Discussion
 
 When aligning an assembly of an individual's genome to a reference genome of its species, we expect to see breakpoints where the assembled genome differs from the reference genome. These breakpoints are caused by both misassemblies and true differences between the individual and the reference. The median number of mobile-element insertions for example, just one class of structural variant, is estimated to be 1,218 per individual [@Sudmant_2015]. Misassemblies can be corrected by inspecting the alignments of the reads to the assembly and cutting the scaffolds at positions not supported by the reads. Misassemblies due to true structural variation will however remain. For this reason, even a perfectly corrected assembly is expected to have a number of differences when compared to the reference.
+
+# Conclusions
 
 Tigmint uses linked reads to reduce the number of misassemblies in a genome sequence assembly. The contiguity of the assembly is not appreciably affected by such a correction, while yielding an assembly that is more correct. Most scaffolding tools order and orient the sequences that they are given, but do not attempt to correct misassemblies. These misassemblies hold back the contiguity that can be achieved by scaffolding. Two sequences that should be connected together cannot be when one of those two sequences is connected incorrectly to a third sequence. By first correcting these misassemblies, the scaffolding tool can do a better job of connecting sequences, and we observe precisely this harmonious effect. Scaffolding an assembly that has been corrected with Tigmint yields a final assembly that is both more correct and substantially more contiguous than an assembly that has not been corrected.
 
