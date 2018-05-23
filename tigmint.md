@@ -111,7 +111,7 @@ The alignments of the ABySS assembly to the reference genome before and after Ti
 
 ![The alignments to the reference genome of the ABySS assembly before and after Tigmint. The reference chromosomes are on the left in colour, the assembly scaffolds on the right in grey. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter height=2.8in}
 
-The default maximum distance permitted between linked reads in a molecule is 50 kbp, which is the value used by the Longranger and Lariat tools of 10x Genomics. Values between 20 kbp and 100 kbp do not substantially affect the results, and values smaller than 20 kbp begin to disconnect linked reads which should be found in a single molecule. The effect of varying the window and spanning molecules parameters of Tigmint on the assembly contiguity and correctness metrics is shown in @fig:parameters. The assembly metrics of the ABySS, DISCOVARdenovo + ABySS-Scaffold, and DISCOVARdenovo + BESST assemblies after correction with Tigmint are rather insensitive to the spanning molecules parameter for any value up to 50 and for the window parameter for any value up to 2 kbp. The DISCOVAR + BESST assembly had the fewest misassemblies when $\textrm{span} \geq 20$ and $\textrm{window} \geq 2000$. Larger values for either of these parameters yielded for the ABySS and DISCOVARdenovo + ABySS assemblies either more misassemblies or lower NGA50. Based on these results, we selected default values of $\textrm{span} = 20$ and $\textrm{window = 2000}$, which worked well for all of the tested assembly tools. When varying the spanning molecules parameter, the window parameter is fixed at 2000, and when varying the window parameter, the spanning molecules parameter is fixed at 20. The median molecule depth is 163, computed using Bedtools [@Quinlan_2010], and its inter-quartile range (IQR) is 31.
+The default maximum distance permitted between linked reads in a molecule is 50 kbp, which is the value used by the Longranger and Lariat tools of 10x Genomics. Values between 20 kbp and 100 kbp do not substantially affect the results, and values smaller than 20 kbp begin to disconnect linked reads which should be found in a single molecule. The effect of varying the window and spanning molecules parameters of Tigmint on the assembly contiguity and correctness metrics is shown in @fig:parameters. The assembly metrics of the ABySS, DISCOVARdenovo + ABySS-Scaffold, and DISCOVARdenovo + BESST assemblies after correction with Tigmint are rather insensitive to the spanning molecules parameter for any value up to 50 and for the window parameter for any value up to 2 kbp. The DISCOVAR + BESST assembly had the fewest misassemblies when $\textrm{span} \geq 20$ and $\textrm{window} \geq 2000$. Larger values for either of these parameters yielded for the ABySS and DISCOVARdenovo + ABySS assemblies either more misassemblies or lower NGA50. Based on these results, we selected default values of $\textrm{span} = 20$ and $\textrm{window = 2000}$, which worked well for all of the tested assembly tools. When varying the spanning molecules parameter, the window parameter is fixed at 2000, and when varying the window parameter, the spanning molecules parameter is fixed at 20. The median molecule depth is 163, computed using Bedtools [@Quinlan_2010], and its interquartile range (IQR) is 31.
 
 ![Effect of varying the window and span parameters on scaffold NGA50 and misassemblies.](figures/parameters.png){#fig:parameters height=2.8in}
 
@@ -143,10 +143,44 @@ Using single-molecule sequencing in combination with linked reads enables a geno
 
 - BED: browser extensible data
 - bp: base pair
-- GIAB: genome in a bottle
-- IQR: inter-quartile range
+- GIAB: Genome in a Bottle
+- IQR: interquartile range
+- NCBI: National Center for Biotechnology Information
 - RAM: random access memory
 - RSS: resident set size
 - SMS: single-molecule sequencing
+
+# Declarations
+
+## Ethics approval and consent to participate
+
+Not applicable.
+
+## Consent for publication
+
+Not applicable.
+
+## Availability of data and material
+
+The datasets generated and/or analysed during the current study are available from NCBI.
+
+- 10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium> \
+  or <ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/10Xgenomics_ChromiumGenome/NA24143.fastqs/>
+- ABySS 2.0 and Discovar de novo assemblies [@Jackman_2017] <http://bit.ly/giab-hg004> \
+  or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/BCGSC_HG004_ABySS2.0_assemblies_12082016/>
+- PacBio reads assembled with Falcon [@Zook_2016] <http://bit.ly/giab-falcon> \
+  or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/MtSinai_PacBio_Assembly_falcon_03282016/>
+- Oxford Nanopore reads assembled with Canu [@Jain_2018] \
+  <https://www.ncbi.nlm.nih.gov/assembly/GCA_900232925.1/>
+
+## Competing interests
+
+The authors declare that they have no competing interests.
+
+## Funding
+
+This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineering Research Council of Canada (NSERC), National Institutes of Health (NIH). The funding agencies were not involved in the design of the study and collection, analysis, interpretation of data, nor writing the manuscript.
+
+\newpage
 
 # References
