@@ -181,6 +181,17 @@ The authors declare that they have no competing interests.
 
 This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineering Research Council of Canada (NSERC), National Institutes of Health (NIH). The funding agencies were not involved in the design of the study and collection, analysis, interpretation of data, nor writing the manuscript.
 
+## Authors' contributions
+
+SDJ designed and executed the data analysis and drafted the manuscript.
+SDJ and IB revised the manuscript.
+SDJ, LC, and JC implemented Tigmint.
+SDJ, LC, JC, RLW, and SY implemented ARCS.
+SDJ, BPV, and HM implemented ABySS 2.
+JC implemented JupiterPlot and created the JupiterPlot figure.
+JB, SJMJ, and IB supervised the project and secured funding.
+All authors provided critical feedback of the manuscript, and read and approved the final manuscript.
+
 \newpage
 
 # References
