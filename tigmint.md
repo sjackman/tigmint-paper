@@ -123,7 +123,7 @@ The primary steps of running Tigmint are mapping the reads to the assembly, dete
 
 When aligning an assembly of an individual's genome to a reference genome of its species, we expect to see breakpoints where the assembled genome differs from the reference genome. These breakpoints are caused by both misassemblies and true differences between the individual and the reference. The median number of mobile-element insertions for example, just one class of structural variant, is estimated to be 1,218 per individual [@Sudmant_2015]. Misassemblies can be corrected by inspecting the alignments of the reads to the assembly and cutting the scaffolds at positions not supported by the reads. Misassemblies due to true structural variation will however remain. For this reason, even a perfectly corrected assembly is expected to have a number of differences when compared to the reference.
 
-**Future development.** We wish to further develop Tigmint to use either linker reads, or single-molecule sequencing reads, or both data types when available to correct an assembly.
+**Future development.** We wish to further develop Tigmint to use linked reads, or single-molecule sequencing reads, or both data types when available to correct an assembly.
 
 # Conclusions
 
