@@ -179,8 +179,10 @@ This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineeri
 
 ## Authors' contributions
 
-SDJ designed and executed the data analysis and drafted the manuscript.
+SDJ drafted the manuscript.
 SDJ and IB revised the manuscript.
+SDJ designed and executed the data analysis.
+SDJ, LC, and ZX performed exploratory data analysis
 SDJ, LC, and JC implemented Tigmint.
 SDJ, LC, JC, RLW, and SY implemented ARCS.
 SDJ, BPV, and HM implemented ABySS 2.
