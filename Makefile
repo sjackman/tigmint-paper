@@ -30,6 +30,14 @@ tigmint.csl:
 tigmint-supp.pdf: tigmint-supp.md
 	pandoc $(pandoc_opt) --toc -o $@ $<
 
+# Fetch BibTex records from a list of DOI.
+%.doi.bib: %.doi
+	brew cite $$(<$<) | sort >$@
+
+# Concatentate the citations with and without DOI.
+%.bib: %.doi.bib %.nodoi.bib
+	sort $^ >$@
+
 tigmint.docx: tigmint.bib tigmint.csl
 tigmint.html: tigmint.bib tigmint.csl
 tigmint.pdf: tigmint.bib tigmint.csl
