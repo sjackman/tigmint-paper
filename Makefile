@@ -12,7 +12,7 @@ clean:
 
 # Download the citation style language (CSL).
 tigmint.csl:
-	curl -o $@ https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
+	curl -o $@ https://www.zotero.org/styles/bmc-bioinformatics
 
 # Render Markdown to HTML using Pandoc.
 %.html: %.md
@@ -36,7 +36,7 @@ tigmint-supp.pdf: tigmint-supp.md
 
 # Concatentate the citations with and without DOI.
 %.bib: %.doi.bib %.nodoi.bib
-	sort $^ >$@
+	sort $^ | sed 's~http://dx.doi.org~https://doi.org~' >$@
 
 tigmint.docx: tigmint.bib tigmint.csl
 tigmint.html: tigmint.bib tigmint.csl
