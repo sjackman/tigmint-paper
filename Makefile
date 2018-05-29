@@ -16,7 +16,7 @@ tigmint.csl:
 
 # Render Markdown to HTML using Pandoc.
 %.html: %.md
-	pandoc $(pandoc_opt) -s -o $@ $<
+	pandoc $(pandoc_opt) -s --mathjax -o $@ $<
 
 # Render Markdown to PDF using Pandoc.
 %.pdf: %.md
