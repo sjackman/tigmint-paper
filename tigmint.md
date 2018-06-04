@@ -107,6 +107,8 @@ Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number
 | Simulated+ARCS           |      23.37 |       17.09 |           365 |          NA |
 | Simulated+Tigmint+ARCS   |      30.24 |       24.98 |           320 |  45 (12.3%) |
 
+\newpage
+
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot [@URL_JupiterPlot]. A number of split alignments, likely misassemblies, are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
 ![The alignments to the reference genome of the ABySS assembly before and after Tigmint. The reference chromosomes are on the left in colour, the assembly scaffolds on the right in grey. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter height=2.8in}
@@ -193,7 +195,5 @@ SDJ, BPV, and HM implemented ABySS 2.
 JC implemented JupiterPlot and created the JupiterPlot figure.
 JB, SJMJ, and IB supervised the project and secured funding.
 All authors provided critical feedback of the manuscript, and read and approved the final manuscript.
-
-\newpage
 
 # References
