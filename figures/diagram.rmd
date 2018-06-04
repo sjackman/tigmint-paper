@@ -1,0 +1,37 @@
+---
+title: "Combine images into a single figure"
+author: "Shaun Jackman"
+---
+
+```{r setup, message=FALSE}
+library(cowplot)
+library(ggplot2)
+library(grid)
+library(png)
+```
+
+```{r read-images}
+image1 <- readPNG("diagram-1.png")
+image2 <- readPNG("diagram-2.png")
+image3 <- readPNG("diagram-3.png")
+```
+
+```{r diagram, fig.width=6, fig.height=2, dpi=300}
+labels <- c("Original assembly", "Cut at misassemblies", "Scaffold")
+
+plot1 <- ggplot() +
+	annotation_custom(rasterGrob(image1)) +
+	xlab(labels[1])
+
+plot2 <- ggplot() +
+	annotation_custom(rasterGrob(image2)) +
+	xlab(labels[2])
+
+plot3 <- ggplot() +
+	annotation_custom(rasterGrob(image3)) +
+	xlab(labels[3])
+
+plot_grid(nrow = 1, plot1, plot2, plot3)
+
+ggsave("diagram.png", width = 6, height = 2)
+```
