@@ -1,0 +1,361 @@
+\documentclass{bmcart}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{frontmatter}
+\begin{fmbox}
+\dochead{Research}
+\title{Tigmint: Correcting Assembly Errors Using Linked Reads From Large Molecules}
+\author[addressref={aff1},corref={aff1},email={sjackman@bcgsc.ca}]
+{\inits{SDJ} \fnm{Shaun D} \snm{Jackman}}
+\author[addressref={aff1},email={lcoombe@bcgsc.ca}]
+{\inits{LC} \fnm{Lauren} \snm{Coombe}}
+\author[addressref={aff1},email={jchu@bcgsc.ca}]
+{\inits{JC} \fnm{Justin} \snm{Chu}}
+\author[addressref={aff1},email={rwarren@bcgsc.ca}]
+{\inits{RLW} \fnm{Rene L} \snm{Warren}}
+\author[addressref={aff1},email={benv@bcgsc.ca}]
+{\inits{BPV} \fnm{Benjamin P} \snm{Vandervalk}}
+\author[addressref={aff1},email={sarah.yeo@alumni.ubc.ca}]
+{\inits{SY} \fnm{Sarah} \snm{Yeo}}
+\author[addressref={aff1},email={zxue@bcgsc.ca}]
+{\inits{ZX} \fnm{Zhuyi} \snm{Xue}}
+\author[addressref={aff1},email={hmohamadi@bcgsc.ca}]
+{\inits{HM} \fnm{Hamid} \snm{Mohamadi}}
+\author[addressref={aff2},email={bohlmann@mail.ubc.ca}]
+{\inits{JB} \fnm{Joerg} \snm{Bohlmann}}
+\author[addressref={aff1},email={sjones@bcgsc.ca}]
+{\inits{SJMJ} \fnm{Steven JM} \snm{Jones}}
+\author[addressref={aff1},email={ibirol@bcgsc.ca}]
+{\inits{IB} \fnm{Inanc} \snm{Birol}}
+\address[id=aff1]{
+  \orgname{BC Cancer Genome Sciences Centre},
+  \city{Vancouver, BC} \postcode{V5Z 4S6},
+  \cny{Canada}
+}
+\address[id=aff2]{
+  \orgname{University of British Columbia, Michael Smith Laboratories},
+  \city{Vancouver, BC} \postcode{V6T 1Z4},
+  \cny{Canada}
+}
+
+\end{fmbox}
+
+\begin{abstractbox}
+
+\begin{abstract}
+\parttitle{Background}
+Genome sequencing yields the sequence of many short snippets of DNA (reads) from a genome. Genome assembly attempts to reconstruct the original genome from which these reads were derived. This task is difficult due to gaps and errors in the sequencing data, repetitive sequence in the underlying genome, and heterozygosity. As a result, assembly errors are common. In the absence of a reference genome, these misassemblies may be identified by comparing the sequencing data to the assembly and looking for discrepancies between the two. Once identified, these misassemblies may be corrected, improving the quality of the assembled sequence. Although tools exist to identify and correct misassemblies using Illumina paired-end and mate-pair sequencing, no such tool yet exists that makes use of the long distance information of the large molecules provided by linked reads, such as those offered by the 10x Genomics Chromium platform. We have developed the tool Tigmint to address this gap.
+
+\parttitle{Results}
+To demonstrate the effectiveness of Tigmint, we applied it to assemblies of a human genome using short reads assembled with ABySS 2.0 and other assemblers. Tigmint reduced the number of misassemblies identified by QUAST in the ABySS assembly by 216 (27\%). While scaffolding with ARCS alone more than doubled the scaffold NGA50 of the assembly from 3 to 8 Mbp, the combination of Tigmint and ARCS improved the scaffold NGA50 of the assembly over five-fold to 16.4 Mbp. This notable improvement in contiguity highlights the utility of assembly correction in refining assemblies. We demonstrate the utility of Tigmint in correcting the assemblies of multiple tools, as well as in using Chromium reads to correct and scaffold assemblies of long single-molecule sequencing.
+
+\parttitle{Conclusions}
+Scaffolding an assembly that has been corrected with Tigmint yields a final assembly that is both more correct and substantially more contiguous than an assembly that has not been corrected. Using single-molecule sequencing in combination with linked reads enables a genome sequence assembly that achieves both a high sequence contiguity as well as high scaffold contiguity, a feat not currently achievable with either technology alone.
+
+\end{abstract}
+
+\begin{keyword}
+\kwd{Assembly correction}
+\kwd{Genome scaffolding}
+\kwd{Genome sequence assembly}
+\kwd{10x Genomics Chromium}
+\kwd{Linked reads}
+\end{keyword}
+
+\end{abstractbox}
+
+\end{frontmatter}
+
+\newpage
+
+\hypertarget{background}{%
+\section*{Background}\label{background}}
+
+Assemblies of short read sequencing data are easily confounded by repetitive sequences larger than the fragment size of the sequencing library. When the size of a repeat exceeds the library fragment size, the contig comes to an end in the best case, or results in misassembled sequence in the worst case. Misassemblies not only complicate downstream analyses, but also limit the contiguity of the assembly. Each incorrectly assembled sequence prevents joining that chimeric sequence to its true neighbours during assembly scaffolding, illustrated in Fig.~\ref{fig:diagram}.
+
+\begin{figure}[h!t]
+\hypertarget{fig:diagram}{%
+\centering
+\includegraphics[width=4.8in]{figures/diagram.png}
+\caption{An assembly of a hypothetical genome with two linear chromosomes is assembled in three contigs. One of those contigs is misassembled. In its current misassembled state, this assembly cannot be completed by scaffolding alone. The misassembled contig must first be corrected by cutting the contig at the location of the misassembly. After correcting the missasembly, each chromosome may be assembled into a single scaffold.}\label{fig:diagram}
+}
+\end{figure}
+
+Long-read sequencing technologies have greatly improved assembly contiguity with their ability to span these repeats, but at a cost roughly ten times that of short-read sequencing technology. For population studies and when sequencing large genomes, such as conifer genomes and other economically important crop species, this cost may be prohibitive. The 10x Genomics (Pleasanton, CA) Chromium technology generates linked reads from large DNA molecules at a cost comparable to standard short-read sequencing technologies. Whereas paired-end sequencing gives two reads from a small DNA fragment, linked reads yield roughly a hundred read pairs from molecules with a typical size of a hundred kilobases. Linked reads indicate which reads were derived from the same DNA molecule (or molecules, when they share the same barcode), and so should be in close proximity in the underlying genome. The technology has been used previously to phase diploid genomes using a reference {[}1{]}, \emph{de novo} assemble complex genomes in the gigabase scale {[}2{]}, and further scaffold draft assemblies {[}3, 4{]}.
+
+A number of software tools employ linked reads for various applications. The Long Ranger tool maps reads to repetitive sequence, phases small variants, and identifies structural variants {[}5{]}, while Supernova {[}2{]} assembles diploid genome sequences Both tools are developed by the vendor. Among tools from academic labs, GROC-SVs {[}6{]}, NAIBR {[}7{]}, and Topsorter {[}8{]} identify structural variants, and ARCS {[}4{]}, Architect {[}9{]}, and fragScaff {[}10{]} scaffold genome assemblies using linked reads.
+
+In \emph{de novo} sequencing projects, it is challenging yet important to ensure the correctness of the resulting assemblies. Tools to correct misassemblies typically inspect the reads aligned back to the assembly to identify discrepancies. Pilon {[}11{]} inspects the alignments to identify variants and correct small-scale misassemblies. NxRepair {[}12{]} uses Illumina mate-pair sequencing to correct large-scale structural misassemblies. Linked reads offer an opportunity to use the long-range information provided by large molecules to identify misassemblies, yet no software tool currently exists to correct misassemblies using linked reads. Here we introduce a software tool, Tigmint, to identify misassemblies using this new and useful data type.
+
+Tigmint first aligns reads to the assembly, and infers the extents of the large DNA molecules from these alignments. It then searches for atypical drops in physical molecule coverage. Since the physical coverage of the large molecules is more consistent and less prone to coverage dropouts than that of the short read sequencing data, it can be used to reveal the positions of possible misassemblies. Linked reads may be used to scaffold the corrected assembly with ARCS {[}4{]} to identify contig ends sharing barcodes, and either ABySS-Scaffold (included with ABySS) or LINKS {[}13{]} to merge sequences of contigs into scaffolds.
+
+\hypertarget{implementation}{%
+\section*{Implementation}\label{implementation}}
+
+The user provides a draft assembly in FASTA format and the reads in FASTQ format. Tigmint first aligns the reads to the draft genome using BWA-MEM {[}14{]}. The alignments are filtered by alignment score and number of mismatches to remove poorly aligned reads with the default thresholds \(\textrm{NM} < 5\) and \(\textrm{AS} \geq 0.65 \cdot l\), where \(l\) is the read length. Reads with the same barcode that map within a specified distance, 50 kbp by default, of the adjacent reads are grouped into a molecule. A BED (Browser Extensible Data) file is constructed, where each record indicates the start and end of one molecule, and the number of reads that compose that molecule. Unusually small molecules, shorter than 2 kbp by default, are filtered out.
+
+Physical molecule depth of coverage is defined as the number of molecules that span a point. Regions with poor physical molecule coverage indicate potentially problematic regions of the assembly. At a misassembly involving a repeat, molecules may start in left flanking unique sequence and end in the repeat, and molecules may start in the repeat and end in right flanking unique sequence. This seemingly uninterrupted molecule coverage may give the appearance that the region is well covered by molecules. Closer inspection may reveal that no molecules span the repeat entirely, from the left flanking sequence to the right flanking sequence. Tigmint checks that each region of a fixed size specified by the user, 1000 bp by default, is spanned by a minimum number of molecules, 20 by default. The Python package Intervaltree is used to efficiently identify regions with insufficient spanning molecules. Regions with fewer spanning molecules reveal possible misassemblies, and the locations of these regions are written to a BED file. The sequences of the original draft assembly are cut at these breakpoints, producing a corrected FASTA file.
+
+Tigmint will optionally run ARCS {[}4{]} to scaffold these corrected sequences and improve the contiguity of the assembly. Tigmint will optionally compare the scaffolds to a reference genome, if one is provided, using QUAST {[}15{]} to compute contiguity (NGA50) and correctness (number of putative misassemblies) of the assemblies before Tigmint, after Tigmint, and after ARCS. Each misassembly identified by QUAST reveals a difference between the assembly and the reference, and may indicate a real misassembly or a structural variation between the reference and the sequenced genome. The NGA50 metric summarizes both assembly contiguity and correctness by computing the NG50 of the lengths of alignment blocks to a reference genome, correcting the contiguity metric by accounting for possible misassemblies. It however also penalizes sequences at points of true variation between the sequenced and reference genomes. The true but unknown contiguity of the assembly, which accounts for misassemblies but not for structural variation, therefore lies somewhere between the lower bound of NGA50 and the upper bound of NG50.
+
+\hypertarget{methods}{%
+\section*{Methods}\label{methods}}
+
+We downloaded the ABySS 2.0 {[}16{]} assembly \texttt{abyss-2.0/scaffolds.fa} from NCBI (see Availability of data and material) for the Genome in a Bottle (GIAB) HG004, assembled from Illumina paired-end and mate-pair reads {[}17{]}. We downloaded the 10x Genomics Chromium reads for this same individual from NCBI, and we extracted barcodes from the reads using Long Ranger Basic. We ran Tigmint to correct the ABySS 2.0 assembly of HG004 using these Chromium reads with the parameters window = 2000 and span = 20. The choice of parameters is discussed in the results. Both the uncorrected and corrected assemblies were scaffolded using ARCS. These assemblies were compared to the chromosome sequences of the GRCh38 reference genome using QUAST {[}15{]}. Since ARCS does not estimate gap sizes using linked reads, the QUAST parameter \texttt{-\/-scaffold-gap-max-size} is set to 100 kbp.
+
+We repeated this analysis using Tigmint, ARCS, and QUAST with five other assemblies. We downloaded the reads assembled with DISCOVARdenovo and scaffolded using BESST {[}18{]} from NCBI, and the same DISCOVARdenovo contigs scaffolded using ABySS-Scaffold. We assembled the linked reads with Supernova 2.0.0 {[}2{]}, which used neither the 2x250 paired-end reads nor mate-pair reads. We applied Tigmint and ARCS to two assemblies of single-molecule sequencing (SMS) reads. We downloaded PacBio reads assembled with Falcon from NCBI {[}19{]} and Oxford Nanopore reads assembled with Canu {[}20{]}, accession GCA\_900232925.1. The Canu assembly is of NA12878, and all other assemblies are of NA24143 (HG004). Most software used in these analyses were installed using Linuxbrew {[}21{]} with the command \texttt{brew\ install\ abyss\ arcs\ bwa\ lrsim\ miller\ minimap2\ samtools\ seqtk}. We used the development version of QUAST 5 revision 78806b2, which is capable of analyzing assemblies of large genomes using Minimap2 {[}22{]}.
+
+\hypertarget{results}{%
+\section*{Results}\label{results}}
+
+Correcting the ABySS assembly of the human data set HG004 with Tigmint reduces the number of misassemblies identified by QUAST by 216, a reduction of 27\%. While the scaffold NG50 decreases slightly from 3.65 Mbp to 3.47 Mbp, the scaffold NGA50 remains unchanged; thus in this case, correcting the assembly with Tigmint improves the correctness of the assembly without substantially reducing its contiguity. However, scaffolding the uncorrected and corrected assemblies with ARCS yield markedly different results: a 2.5-fold increase in NGA50 from 3.1 Mbp to 7.9 Mbp without Tigmint versus a more than five-fold increase in NGA50 to 16.4 Mbp with Tigmint. Further, correcting the assembly and then scaffolding yields a final assembly that is both more correct and more contiguous than the original assembly, as shown in Fig.~\ref{fig:metrics} and Table~\ref{tbl:metrics}.
+
+Correcting the DISCOVARdenovo + BESST assembly reduces the number of misassemblies by 75, a reduction of 13\%. Using Tigmint to correct the assembly before scaffolding with ARCS yields an increase in NGA50 of 28\% over using ARCS without Tigmint. Correcting the DISCOVARdenovo + ABySS-Scaffold assembly reduces the number of misassemblies by 35 (5\%), after which scaffolding with ARCS improves the NGA50 to 23.7 Mbp, 2.6 times the original assembly and a 40\% improvement over ARCS without Tigmint. The assembly with the fewest misassemblies is DISCOVARdenovo + BESST + Tigmint. The assembly with the largest NGA50 is DISCOVARdenovo + ABySS-Scaffold + Tigmint + ARCS. Finally, DISCOVARdenovo + BESST + Tigmint + ARCS strikes a good balance between both good contiguity and few misassemblies.
+
+Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces the number of misassemblies by 82, a reduction of 8\%, and after scaffolding the corrected assembly with ARCS, we see a slight (\textless{}1\%) decrease in both misassemblies and NGA50 compared to the original Supernova assembly. Since the Supernova assembly is composed entirely of the linked reads, this result is concordant with our expectation of no substantial gains from using these same data to correct and scaffold the Supernova assembly.
+
+The assemblies of SMS reads have contig NGA50s in the megabases. Tigmint and ARCS together improve the scaffold NGA50 of the Canu assembly by more than double to nearly 11 Mbp and improve the scaffold NGA50 of the Falcon assembly by nearly triple to 12 Mbp, and both assemblies have fewer misassemblies than their original assembly, shown in Fig.~\ref{fig:metrics-sms}. Thus, using Tigmint and ARCS together improves both the contiguity and correctness over the original assemblies. This result demonstrates that by using long reads in combination with linked reads, one can achieve an assembly quality that is not currently possible with either technology alone.
+
+\begin{figure}[h!t]
+\hypertarget{fig:metrics}{%
+\centering
+\includegraphics[width=4.8in]{figures/metrics.png}
+\caption{Assembly contiguity and correctness metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left. Supernova used linked reads only, whereas the others used paired end and mate pair reads.}\label{fig:metrics}
+}
+\end{figure}
+
+\begin{figure}[h!t]
+\hypertarget{fig:metrics-sms}{%
+\centering
+\includegraphics[width=4.8in]{figures/metrics-sms.png}
+\caption{Assemblies of Nanopore reads with Canu and PacBio reads with Falcon with and without correction using Tigmint prior to scaffolding with ARCS.}\label{fig:metrics-sms}
+}
+\end{figure}
+
+\begin{table}
+\hypertarget{tbl:metrics}{}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Assembly & NG50 (Mbp) & NGA50 (Mbp) & Misassemblies & Reduction\tabularnewline
+\midrule
+ABySS & 3.65 & 3.09 & 790 & NA\tabularnewline
+ABySS+Tigmint & 3.47 & 3.09 & 574 & 216 (27.3\%)\tabularnewline
+ABySS+ARCS & 9.91 & 7.86 & 823 & NA\tabularnewline
+ABySS+Tigmint+ARCS & 26.39 & 16.43 & 641 & 182 (22.1\%)\tabularnewline
+DISCO+ABySS & 10.55 & 9.04 & 701 & NA\tabularnewline
+DISCO+ABySS+Tigmint & 10.16 & 9.04 & 666 & 35 (5.0\%)\tabularnewline
+DISCO+ABySS+ARCS & 29.20 & 17.05 & 829 & NA\tabularnewline
+DISCO+ABySS+Tigmint+ARCS & 35.31 & 23.68 & 804 & 25 (3.0\%)\tabularnewline
+DISCO+BESST & 7.01 & 6.14 & 568 & NA\tabularnewline
+DISCO+BESST+Tigmint & 6.77 & 6.14 & 493 & 75 (13.2\%)\tabularnewline
+DISCO+BESST+ARCS & 27.64 & 15.14 & 672 & NA\tabularnewline
+DISCO+BESST+Tigmint+ARCS & 33.43 & 19.40 & 603 & 69 (10.3\%)\tabularnewline
+Supernova & 38.48 & 12.65 & 1,005 & NA\tabularnewline
+Supernova+Tigmint & 17.72 & 11.43 & 923 & 82 (8.2\%)\tabularnewline
+Supernova+ARCS & 39.63 & 13.24 & 1,052 & NA\tabularnewline
+Supernova+Tigmint+ARCS & 27.35 & 12.60 & 998 & 54 (5.1\%)\tabularnewline
+Falcon & 4.56 & 4.21 & 3,640 & NA\tabularnewline
+Falcon+Tigmint & 4.45 & 4.21 & 3,444 & 196 (5.4\%)\tabularnewline
+Falcon+ARCS & 18.14 & 9.71 & 3,801 & NA\tabularnewline
+Falcon+Tigmint+ARCS & 22.52 & 11.97 & 3,574 & 227 (6.0\%)\tabularnewline
+Canu & 7.06 & 5.40 & 1,688 & NA\tabularnewline
+Canu+Tigmint & 6.87 & 5.38 & 1,600 & 88 (5.2\%)\tabularnewline
+Canu+ARCS & 19.70 & 10.12 & 1,736 & NA\tabularnewline
+Canu+Tigmint+ARCS & 22.01 & 10.85 & 1,626 & 110 (6.3\%)\tabularnewline
+Simulated & 9.00 & 8.28 & 272 & NA\tabularnewline
+Simulated+Tigmint & 8.61 & 8.28 & 217 & 55 (20.2\%)\tabularnewline
+Simulated+ARCS & 23.37 & 17.09 & 365 & NA\tabularnewline
+Simulated+Tigmint+ARCS & 30.24 & 24.98 & 320 & 45 (12.3\%)\tabularnewline
+\bottomrule
+\end{tabular}
+\caption{\label{tbl:metrics}The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS.}\tabularnewline
+\end{table}
+
+The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in Fig.~\ref{fig:jupiter} using JupiterPlot {[}23{]}. A number of split alignments, likely misassemblies, are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
+
+\begin{figure}[h!t]
+\hypertarget{fig:jupiter}{%
+\centering
+\includegraphics[width=4.8in]{figures/jupiter.png}
+\caption{The alignments to the reference genome of the ABySS assembly before and after Tigmint. The reference chromosomes are on the left in colour, the assembly scaffolds on the right in grey. No translocations are visible after Tigmint.}\label{fig:jupiter}
+}
+\end{figure}
+
+The default maximum distance permitted between linked reads in a molecule is 50 kbp, which is the value used by the Long Ranger and Lariat tools of 10x Genomics. In our tests, values between 20 kbp and 100 kbp do not substantially affect the results, and values smaller than 20 kbp begin to disconnect linked reads that should be found in a single molecule. The effect of varying the window and spanning molecules parameters of Tigmint on the assembly contiguity and correctness metrics is shown in Fig.~\ref{fig:parameters}. When varying the spanning molecules parameter, the window parameter is fixed at 2 kbp, and when varying the window parameter, the spanning molecules parameter is fixed at 20. The assembly metrics of the ABySS, DISCOVARdenovo + ABySS-Scaffold, and DISCOVARdenovo + BESST assemblies after correction with Tigmint are rather insensitive to the spanning molecules parameter for any value up to 50 and for the window parameter for any value up to 2 kbp. The parameter values of \(\textrm{span} = 20\) and \(\textrm{window} = 2000\) worked well for all of the tested assembly tools.
+
+\begin{figure}[h!t]
+\hypertarget{fig:parameters}{%
+\centering
+\includegraphics[width=4.8in]{figures/parameters.png}
+\caption{Effect of varying the window and span parameters on scaffold NGA50 and misassemblies.}\label{fig:parameters}
+}
+\end{figure}
+
+We simulated 434 million 2x250 paired-end and 350 million 2x125 mate-pair read pairs using wgsim of samtools, and we simulated 524 million 2x150 linked read pairs using LRSim {[}24{]}, emulating the HG004 data set. We assembled these reads using ABySS 2.0.2, and applied Tigmint and ARCS as before. The assembly metrics are shown in Table~\ref{tbl:metrics}. We see similar performance to the real data: a 20\% reduction in misassemblies after running Tigmint, and a three-fold increase in NGA50 after Tigmint and ARCS. Since no structural rearrangements are present in the simulated data, each misassembly identified by QUAST ought to be a true misassembly, allowing us to calculate precision and recall. For the parameters used with the real data, window = 2000 and span = 20, Tigmint makes 210 cuts in scaffolds at least 3 kbp (QUAST does not analyze shorter scaffolds), and corrects 55 misassemblies of the 272 identified by QUAST, yielding precision and recall of \(\textrm{PPV} = \frac{55}{210} = 0.26\) and \(\textrm{TPR} = \frac{55}{272} = 0.20\). Altering the window parameter to 1 kbp, Tigmint makes only 58 cuts, and yet it corrects 51 misassemblies, making its precision and recall \(\textrm{PPV} = \frac{51}{58} = 0.88\) and \(\textrm{TPR} = \frac{51}{272} = 0.19\), a marked improvement in precision with only a small decrease in recall. The scaffold NGA50 after ARCS is 24.7 Mbp, 1\% less than with window = 2000. Since the final assembly metrics are similar, using a smaller value for the window size parameter may avoid unnecessary cuts. Small-scale misassemblies cannot be detected by Tigmint, such as collapsed repeats, and relocations and inversions smaller than a typical molecule.
+
+The primary steps of running Tigmint are mapping the reads to the assembly, determining the start and end coordinate of each molecule, and finally identifying the discrepant regions and correcting the assembly. Mapping the reads to the DISCOVAR + ABySS-Scaffold assembly with BWA-MEM and concurrently sorting by barcode using Samtools {[}25{]} in a pipe required 5.5 hours (wall-clock) and 17.2 GB of RAM (RSS) using 48 threads on a 24-core hyper-threaded computer. Determining the start and end coordinates of each molecule required 3.25 hours and 0.08 GB RAM using a single thread. Finally, identifying the discrepant regions of the assembly, correcting the assembly, and creating a new FASTA file required 7 minutes and 3.3 GB RAM using 48 threads. The slowest step of mapping the reads to the assembly could be made faster by using light-weight mapping rather than full alignment, since Tigmint needs only the positions of the reads, not their alignments.
+
+When aligning an assembly of an individual's genome to a reference genome of its species, we expect to see breakpoints where the assembled genome differs from the reference genome. These breakpoints are caused by both misassemblies and true differences between the individual and the reference. The median number of mobile-element insertions for example, just one class of structural variant, is estimated to be 1,218 per individual {[}26{]}. Misassemblies can be corrected by inspecting the alignments of the reads to the assembly and cutting the scaffolds at positions not supported by the reads. Reported misassemblies due to true structural variation will however remain. For this reason, even a perfectly corrected assembly is expected to have a number of differences when compared to the reference.
+
+\hypertarget{conclusions}{%
+\section*{Conclusions}\label{conclusions}}
+
+Tigmint uses linked reads to reduce the number of misassemblies in a genome sequence assembly. The contiguity of the assembly is not appreciably affected by such a correction, while yielding an assembly that is more correct. Most scaffolding tools order and orient the sequences that they are given, but do not attempt to correct misassemblies. These misassemblies hold back the contiguity that can be achieved by scaffolding. Two sequences that should be connected together cannot be when one of those two sequences is connected incorrectly to a third sequence. By first correcting these misassemblies, the scaffolding tool can do a better job of connecting sequences, and we observe precisely this synergistic effect. Scaffolding an assembly that has been corrected with Tigmint yields a final assembly that is both more correct and substantially more contiguous than an assembly that has not been corrected.
+
+Using single-molecule sequencing in combination with linked reads enables a genome sequence assembly that achieves both a high sequence contiguity as well as high scaffold contiguity, a feat not currently achievable with either technology alone. Although high-throughput short-read sequencing is often used to polish a long-read assembly to improve its accuracy at the nucleotide level, short read sequencing reads align ambiguously to repetitive sequence, and so are not well suited to polish the repetitive sequence of the assembly. Linked reads would resolve this mapping ambiguity and are uniquely suited to polishing an assembly of long reads, an opportunity for further research in the hybrid assembly of long and linked reads.
+
+\begin{backmatter}
+
+\hypertarget{availability-and-requirements}{%
+\section*{Availability and requirements}\label{availability-and-requirements}}
+
+\textbf{Project name:} Tigmint\\
+\textbf{Project home page:} \url{https://github.com/bcgsc/tigmint}\\
+\textbf{Operating system:} Platform independent\\
+\textbf{Programming language:} Python\\
+\textbf{License:} GNU GPL v3.0
+
+\hypertarget{abbreviations}{%
+\section*{Abbreviations}\label{abbreviations}}
+
+BED: browser extensible data
+\\ bp: base pair
+\\ GIAB: Genome in a Bottle
+\\ kbp: kilobase pair
+\\ NCBI: National Center for Biotechnology Information
+\\ RAM: random access memory
+\\ RSS: resident set size
+\\ SMS: single-molecule sequencing
+
+\hypertarget{availability-of-data-and-material}{%
+\section*{Availability of data and material}\label{availability-of-data-and-material}}
+
+The datasets generated and/or analysed during the current study are available from NCBI.
+
+10x Genomics Chromium linked reads {[}17{]} \url{http://bit.ly/giab-hg004-chromium}
+or \url{ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/10Xgenomics_ChromiumGenome/NA24143.fastqs/}
+
+ABySS 2.0 and Discovar de novo assemblies {[}16{]} \url{http://bit.ly/giab-hg004}
+or \url{https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/BCGSC_HG004_ABySS2.0_assemblies_12082016/}
+
+PacBio reads assembled with Falcon {[}17{]} \url{http://bit.ly/giab-falcon}
+or \url{https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/MtSinai_PacBio_Assembly_falcon_03282016/}
+
+Oxford Nanopore reads assembled with Canu {[}20{]}
+\url{https://www.ncbi.nlm.nih.gov/assembly/GCA_900232925.1/}
+
+The script to run the data analysis is available online at \url{https://github.com/sjackman/tigmint-data}.
+
+\hypertarget{authors-contributions}{%
+\section*{Authors' contributions}\label{authors-contributions}}
+
+SDJ drafted the manuscript. SDJ and IB revised the manuscript. SDJ designed and executed the data analysis. SDJ, LC, and ZX performed exploratory data analysis. SDJ, LC, and JC implemented Tigmint. SDJ, LC, JC, RLW, and SY implemented ARCS. SDJ, BPV, and HM implemented ABySS 2. JC implemented JupiterPlot and created the JupiterPlot figure. JB, SJMJ, and IB supervised the project and secured funding. All authors provided critical feedback of the manuscript, and read and approved the final manuscript.
+
+\hypertarget{ethics-approval-and-consent-to-participate}{%
+\section*{Ethics approval and consent to participate}\label{ethics-approval-and-consent-to-participate}}
+
+Not applicable.
+
+\hypertarget{competing-interests}{%
+\section*{Competing interests}\label{competing-interests}}
+
+The authors declare that they have no competing interests.
+
+\hypertarget{consent-for-publication}{%
+\section*{Consent for publication}\label{consent-for-publication}}
+
+Not applicable.
+
+\hypertarget{funding}{%
+\section*{Funding}\label{funding}}
+
+This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineering Research Council of Canada (NSERC), National Institutes of Health (NIH). The funding agencies were not involved in the design of the study and collection, analysis, interpretation of data, nor writing the manuscript.
+
+\bibliographystyle{plain}
+\bibliography{tigmint}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-Zheng_2016}{}%
+1. Zheng GXY, Lau BT, Schnall-Levin M, Jarosz M, Bell JM, Hindson CM, et al. Haplotyping germline and cancer genomes with high-throughput linked-read sequencing. Nature Biotechnology. 2016;34:303--11. doi:\href{https://doi.org/10.1038/nbt.3432}{10.1038/nbt.3432}.
+
+\leavevmode\hypertarget{ref-Weisenfeld_2017}{}%
+2. Weisenfeld NI, Kumar V, Shah P, Church DM, Jaffe DB. Direct determination of diploid genome sequences. Genome Research. 2017;27:757--67. doi:\href{https://doi.org/10.1101/gr.214874.116}{10.1101/gr.214874.116}.
+
+\leavevmode\hypertarget{ref-Mostovoy_2016}{}%
+3. Mostovoy Y, Levy-Sakin M, Lam J, Lam ET, Hastie AR, Marks P, et al. A hybrid approach for de novo human genome sequence assembly and phasing. Nature Methods. 2016;13:587--90. doi:\href{https://doi.org/10.1038/nmeth.3865}{10.1038/nmeth.3865}.
+
+\leavevmode\hypertarget{ref-Yeo_2017}{}%
+4. Yeo S, Coombe L, Warren RL, Chu J, Birol I. ARCS: Scaffolding genome drafts with linked reads. Bioinformatics. 2017;34:725--31. doi:\href{https://doi.org/10.1093/bioinformatics/btx675}{10.1093/bioinformatics/btx675}.
+
+\leavevmode\hypertarget{ref-URL_10x}{}%
+5. 10x Genomics Overview of Genome Software. \url{https://support.10xgenomics.com/genome-exome/software/overview/welcome}. Accessed 1 Jun 2018.
+
+\leavevmode\hypertarget{ref-Spies_2017}{}%
+6. Spies N, Weng Z, Bishara A, McDaniel J, Catoe D, Zook JM, et al. Genome-wide reconstruction of complex structural variants using read clouds. Nature Methods. 2017;14:915--20. doi:\href{https://doi.org/10.1038/nmeth.4366}{10.1038/nmeth.4366}.
+
+\leavevmode\hypertarget{ref-Elyanow_2017}{}%
+7. Elyanow R, Wu H-T, Raphael BJ. Identifying structural variants using linked-read sequencing data. 2017. doi:\href{https://doi.org/10.1101/190454}{10.1101/190454}.
+
+\leavevmode\hypertarget{ref-URL_Topsorter}{}%
+8. Chu J. JupiterPlot: Circos assembly consistency plot. \url{https://github.com/JustinChu/JupiterPlot}. Accessed 1 Jun 2018.
+
+\leavevmode\hypertarget{ref-Kuleshov_2016}{}%
+9. Kuleshov V, Snyder MP, Batzoglou S. Genome assembly from synthetic long read clouds. Bioinformatics. 2016;32:i216--24. doi:\href{https://doi.org/10.1093/bioinformatics/btw267}{10.1093/bioinformatics/btw267}.
+
+\leavevmode\hypertarget{ref-Adey_2014}{}%
+10. Adey A, Kitzman JO, Burton JN, Daza R, Kumar A, Christiansen L, et al. In vitro, long-range sequence information for de novo genome assembly via transposase contiguity. Genome Research. 2014;24:2041--9. doi:\href{https://doi.org/10.1101/gr.178319.114}{10.1101/gr.178319.114}.
+
+\leavevmode\hypertarget{ref-Walker_2014}{}%
+11. Walker BJ, Abeel T, Shea T, Priest M, Abouelliel A, Sakthikumar S, et al. Pilon: An integrated tool for comprehensive microbial variant detection and genome assembly improvement. PLoS ONE. 2014;9:e112963. doi:\href{https://doi.org/10.1371/journal.pone.0112963}{10.1371/journal.pone.0112963}.
+
+\leavevmode\hypertarget{ref-Murphy_2015}{}%
+12. Murphy RR, O'Connell J, Cox AJ, Schulz-Trieglaff O. NxRepair: Error correction inde novosequence assembly using nextera mate pairs. PeerJ. 2015;3:e996. doi:\href{https://doi.org/10.7717/peerj.996}{10.7717/peerj.996}.
+
+\leavevmode\hypertarget{ref-Warren_2015}{}%
+13. Warren RL, Yang C, Vandervalk BP, Behsaz B, Lagman A, Jones SJM, et al. LINKS: Scalable, alignment-free scaffolding of draft genomes with long reads. GigaScience. 2015;4. doi:\href{https://doi.org/10.1186/s13742-015-0076-3}{10.1186/s13742-015-0076-3}.
+
+\leavevmode\hypertarget{ref-Li_2013}{}%
+14. Li H. Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv:13033997. 2013.
+
+\leavevmode\hypertarget{ref-Gurevich_2013}{}%
+15. Gurevich A, Saveliev V, Vyahhi N, Tesler G. QUAST: Quality assessment tool for genome assemblies. Bioinformatics. 2013;29:1072--5. doi:\href{https://doi.org/10.1093/bioinformatics/btt086}{10.1093/bioinformatics/btt086}.
+
+\leavevmode\hypertarget{ref-Jackman_2017}{}%
+16. Jackman SD, Vandervalk BP, Mohamadi H, Chu J, Yeo S, Hammond SA, et al. ABySS 2.0: Resource-efficient assembly of large genomes using a bloom filter. Genome Research. 2017;27:768--77. doi:\href{https://doi.org/10.1101/gr.214346.116}{10.1101/gr.214346.116}.
+
+\leavevmode\hypertarget{ref-Zook_2016}{}%
+17. Zook JM, Catoe D, McDaniel J, Vang L, Spies N, Sidow A, et al. Extensive sequencing of seven human genomes to characterize benchmark reference materials. Scientific Data. 2016;3:160025. doi:\href{https://doi.org/10.1038/sdata.2016.25}{10.1038/sdata.2016.25}.
+
+\leavevmode\hypertarget{ref-Sahlin_2016}{}%
+18. Sahlin K, Chikhi R, Arvestad L. Assembly scaffolding with pe-contaminated mate-pair libraries. Bioinformatics. 2016;32:1925--32. doi:\href{https://doi.org/10.1093/bioinformatics/btw064}{10.1093/bioinformatics/btw064}.
+
+\leavevmode\hypertarget{ref-Chin_2016}{}%
+19. Chin C-S, Peluso P, Sedlazeck FJ, Nattestad M, Concepcion GT, Clum A, et al. Phased diploid genome assembly with single-molecule real-time sequencing. Nature Methods. 2016;13:1050--4. doi:\href{https://doi.org/10.1038/nmeth.4035}{10.1038/nmeth.4035}.
+
+\leavevmode\hypertarget{ref-Jain_2018}{}%
+20. Jain M, Koren S, Miga KH, Quick J, Rand AC, Sasani TA, et al. Nanopore sequencing and assembly of a human genome with ultra-long reads. Nature Biotechnology. 2018;36:338--45. doi:\href{https://doi.org/10.1038/nbt.4060}{10.1038/nbt.4060}.
+
+\leavevmode\hypertarget{ref-Jackman_2016}{}%
+21. Jackman SD, Birol I. Linuxbrew and Homebrew for cross-platform package management {[}v1; not peer reviewed{]}. F1000Research. 2016;5(ISCB Comm J):1795 (poster). doi:\href{https://doi.org/10.7490/f1000research.1112681.1}{10.7490/f1000research.1112681.1}.
+
+\leavevmode\hypertarget{ref-Li_2017}{}%
+22. Li H. Minimap2: Versatile pairwise alignment for nucleotide sequences. arXiv:170801492. 2017.
+
+\leavevmode\hypertarget{ref-URL_JupiterPlot}{}%
+23. Fang H. Topsorter: Graphical assessment of structrial variants using 10x genomics data. \url{https://github.com/hanfang/Topsorter}. Accessed 1 Jun 2018.
+
+\leavevmode\hypertarget{ref-Luo_2017}{}%
+24. Luo R, Sedlazeck FJ, Darby CA, Kelly SM, Schatz MC. LRSim: A linked reads simulator generating insights for better genome partitioning. 2017. doi:\href{https://doi.org/10.1101/103549}{10.1101/103549}.
+
+\leavevmode\hypertarget{ref-Li_2009}{}%
+25. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, et al. The sequence alignment/map format and samtools. Bioinformatics. 2009;25:2078--9. doi:\href{https://doi.org/10.1093/bioinformatics/btp352}{10.1093/bioinformatics/btp352}.
+
+\leavevmode\hypertarget{ref-Sudmant_2015}{}%
+26. Sudmant PH, Rausch T, Gardner EJ, Handsaker RE, Abyzov A, Huddleston J, et al. An integrated map of structural variation in 2,504 human genomes. Nature. 2015;526:75--81. doi:\href{https://doi.org/10.1038/nature15394}{10.1038/nature15394}.
+
+\end{backmatter}
+\end{document}
