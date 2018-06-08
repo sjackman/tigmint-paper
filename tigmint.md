@@ -22,13 +22,13 @@ sjackman@bcgsc.ca; lcoombe@bcgsc.ca; jchu@bcgsc.ca; rwarren@bcgsc.ca; benv@bcgsc
 
 # Abstract
 
-**Background.** Genome sequencing yields the sequence of many short snippets of DNA (reads) from a genome. Genome assembly attempts to reconstruct the original genome from which these reads were derived. This task is difficult due to gaps and errors in the sequencing data, repetitive sequence in the underlying genome, and heterozygosity. As a result, assembly errors are common. In the absence of a reference genome, these misassemblies may be identified by comparing the sequencing data to the assembly and looking for discrepancies between the two. Once identified, these misassemblies may be corrected, improving the quality of the assembled sequence. Although tools exist to identify and correct misassemblies using Illumina paired-end and mate-pair sequencing, no such tool yet exists that makes use of the long distance information of the large molecules provided by linked reads, such as those offered by the 10x Genomics Chromium platform. We have developed the tool Tigmint to address this gap.
+**Background:** Genome sequencing yields the sequence of many short snippets of DNA (reads) from a genome. Genome assembly attempts to reconstruct the original genome from which these reads were derived. This task is difficult due to gaps and errors in the sequencing data, repetitive sequence in the underlying genome, and heterozygosity. As a result, assembly errors are common. In the absence of a reference genome, these misassemblies may be identified by comparing the sequencing data to the assembly and looking for discrepancies between the two. Once identified, these misassemblies may be corrected, improving the quality of the assembled sequence. Although tools exist to identify and correct misassemblies using Illumina paired-end and mate-pair sequencing, no such tool yet exists that makes use of the long distance information of the large molecules provided by linked reads, such as those offered by the 10x Genomics Chromium platform. We have developed the tool Tigmint to address this gap.
 
-**Results.** To demonstrate the effectiveness of Tigmint, we applied it to assemblies of a human genome using short reads assembled with ABySS 2.0 and other assemblers. Tigmint reduced the number of misassemblies identified by QUAST in the ABySS assembly by 216 (27%). While scaffolding with ARCS alone more than doubled the scaffold NGA50 of the assembly from 3 to 8 Mbp, the combination of Tigmint and ARCS improved the scaffold NGA50 of the assembly over five-fold to 16.4 Mbp. This notable improvement in contiguity highlights the utility of assembly correction in refining assemblies. We demonstrate the utility of Tigmint in correcting the assemblies of multiple tools, as well as in using Chromium reads to correct and scaffold assemblies of long single-molecule sequencing.
+**Results:** To demonstrate the effectiveness of Tigmint, we applied it to assemblies of a human genome using short reads assembled with ABySS 2.0 and other assemblers. Tigmint reduced the number of misassemblies identified by QUAST in the ABySS assembly by 216 (27%). While scaffolding with ARCS alone more than doubled the scaffold NGA50 of the assembly from 3 to 8 Mbp, the combination of Tigmint and ARCS improved the scaffold NGA50 of the assembly over five-fold to 16.4 Mbp. This notable improvement in contiguity highlights the utility of assembly correction in refining assemblies. We demonstrate the utility of Tigmint in correcting the assemblies of multiple tools, as well as in using Chromium reads to correct and scaffold assemblies of long single-molecule sequencing.
 
-**Conclusions.** Scaffolding an assembly that has been corrected with Tigmint yields a final assembly that is both more correct and substantially more contiguous than an assembly that has not been corrected. Using single-molecule sequencing in combination with linked reads enables a genome sequence assembly that achieves both a high sequence contiguity as well as high scaffold contiguity, a feat not currently achievable with either technology alone.
+**Conclusions:** Scaffolding an assembly that has been corrected with Tigmint yields a final assembly that is both more correct and substantially more contiguous than an assembly that has not been corrected. Using single-molecule sequencing in combination with linked reads enables a genome sequence assembly that achieves both a high sequence contiguity as well as high scaffold contiguity, a feat not currently achievable with either technology alone.
 
-**Keywords.** Assembly correction &middot; Genome scaffolding &middot; Genome sequence assembly &middot; 10x Genomics Chromium &middot; Linked reads
+**Keywords:** Assembly correction; Genome scaffolding; Genome sequence assembly; 10x Genomics Chromium; Linked reads
 
 \newpage
 
@@ -137,51 +137,36 @@ Using single-molecule sequencing in combination with linked reads enables a geno
 | **Programming language:** Python
 | **License:** GNU GPL v3.0
 
-# List of abbreviations
+# Abbreviations
 
-- BED: browser extensible data
-- bp: base pair
-- GIAB: Genome in a Bottle
-- kbp: kilobase pair
-- NCBI: National Center for Biotechnology Information
-- RAM: random access memory
-- RSS: resident set size
-- SMS: single-molecule sequencing
+| BED: browser extensible data
+| bp: base pair
+| GIAB: Genome in a Bottle
+| kbp: kilobase pair
+| NCBI: National Center for Biotechnology Information
+| RAM: random access memory
+| RSS: resident set size
+| SMS: single-molecule sequencing
 
-# Declarations
-
-## Ethics approval and consent to participate
-
-Not applicable.
-
-## Consent for publication
-
-Not applicable.
-
-## Availability of data and material
+# Availability of data and material
 
 The datasets generated and/or analysed during the current study are available from NCBI.
 
-- 10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium> \
-  or <ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/10Xgenomics_ChromiumGenome/NA24143.fastqs/>
-- ABySS 2.0 and Discovar de novo assemblies [@Jackman_2017] <http://bit.ly/giab-hg004> \
-  or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/BCGSC_HG004_ABySS2.0_assemblies_12082016/>
-- PacBio reads assembled with Falcon [@Zook_2016] <http://bit.ly/giab-falcon> \
-  or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/MtSinai_PacBio_Assembly_falcon_03282016/>
-- Oxford Nanopore reads assembled with Canu [@Jain_2018] \
-  <https://www.ncbi.nlm.nih.gov/assembly/GCA_900232925.1/>
+10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium>
+or <ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/10Xgenomics_ChromiumGenome/NA24143.fastqs/>
+
+ABySS 2.0 and Discovar de novo assemblies [@Jackman_2017] <http://bit.ly/giab-hg004>
+or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/BCGSC_HG004_ABySS2.0_assemblies_12082016/>
+
+PacBio reads assembled with Falcon [@Zook_2016] <http://bit.ly/giab-falcon>
+or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/MtSinai_PacBio_Assembly_falcon_03282016/>
+
+Oxford Nanopore reads assembled with Canu [@Jain_2018]
+<https://www.ncbi.nlm.nih.gov/assembly/GCA_900232925.1/>
 
 The script to run the data analysis is available online at <https://github.com/sjackman/tigmint-data>.
 
-## Competing interests
-
-The authors declare that they have no competing interests.
-
-## Funding
-
-This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineering Research Council of Canada (NSERC), National Institutes of Health (NIH). The funding agencies were not involved in the design of the study and collection, analysis, interpretation of data, nor writing the manuscript.
-
-## Authors' contributions
+# Authors' contributions
 
 SDJ drafted the manuscript.
 SDJ and IB revised the manuscript.
@@ -193,5 +178,21 @@ SDJ, BPV, and HM implemented ABySS 2.
 JC implemented JupiterPlot and created the JupiterPlot figure.
 JB, SJMJ, and IB supervised the project and secured funding.
 All authors provided critical feedback of the manuscript, and read and approved the final manuscript.
+
+# Ethics approval and consent to participate
+
+Not applicable.
+
+# Competing interests
+
+The authors declare that they have no competing interests.
+
+# Consent for publication
+
+Not applicable.
+
+# Funding
+
+This work was funded by Genome Canada, Genome BC, Natural Sciences and Engineering Research Council of Canada (NSERC), National Institutes of Health (NIH). The funding agencies were not involved in the design of the study and collection, analysis, interpretation of data, nor writing the manuscript.
 
 # References
