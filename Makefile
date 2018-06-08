@@ -26,6 +26,10 @@ tigmint.csl:
 %.docx: %.md
 	pandoc -o $@ $<
 
+# Convert Markdown to LaTeX using Pandoc.
+%.tex: %.md
+	pandoc $(pandoc_opt) --wrap=none -o $@ $<
+
 # Generate Table of Contents for supplemental material only
 tigmint-supp.pdf: tigmint-supp.md
 	pandoc $(pandoc_opt) --toc -o $@ $<
