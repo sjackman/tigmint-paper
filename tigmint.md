@@ -56,13 +56,15 @@ Tigmint will optionally run ARCS [@Yeo_2017] to scaffold these corrected sequenc
 
 # Evaluation
 
-We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` from NCBI (see Availability of data and material) for the Genome in a Bottle (GIAB) HG004, assembled from Illumina paired-end and mate-pair reads [@Zook_2016].
+See "Availability of data and material" to access the data used for evaluation. We downloaded the ABySS 2.0 [@Jackman_2017] assembly `abyss-2.0/scaffolds.fa` from NCBI of the Genome in a Bottle (GIAB) human sample HG004, assembled from Illumina paired-end and mate-pair reads [@Zook_2016].
 
 We downloaded the Illumina mate pair reads for this individual from NCBI. We trimmed adapters using NxTrim 0.4.0 [@O_Connell_2014] with parameters `--norc --joinreads --preserve-mp` and selected the reads identified as known mate pairs. We ran NxRepair 0.13 [@Murphy_2015] to correct the ABySS 2.0 assembly of HG004 using these trimmed mate-pair reads. A range of values of its z-score threshold parameter *T* were tested.
 
 We downloaded the 10x Genomics Chromium reads for this same individual from NCBI, and we extracted barcodes from the reads using Long Ranger Basic. We ran Tigmint to correct the ABySS 2.0 assembly of HG004 using these Chromium reads with the parameters window = 2000 and span = 20. The choice of parameters is discussed in the results. Both the uncorrected and corrected assemblies were scaffolded using ARCS. These assemblies were compared to the chromosome sequences of the GRCh38 reference genome using QUAST [@Gurevich_2013]. Since ARCS does not estimate gap sizes using linked reads, the QUAST parameter `--scaffold-gap-max-size` is set to 100 kbp.
 
-We repeated this analysis using Tigmint, ARCS, and QUAST with five other assemblies. We downloaded the reads assembled with DISCOVARdenovo and scaffolded using BESST [@Sahlin_2016] from NCBI, and the same DISCOVARdenovo contigs scaffolded using ABySS-Scaffold. We assembled the linked reads with Supernova 2.0.0 [@Weisenfeld_2017], which used neither the 2x250 paired-end reads nor mate-pair reads. We applied Tigmint and ARCS to two assemblies of single-molecule sequencing (SMS) reads. We downloaded PacBio reads assembled with Falcon from NCBI [@Chin_2016] and Oxford Nanopore reads assembled with Canu [@Jain_2018], accession GCA_900232925.1. The Canu assembly is of NA12878, and all other assemblies are of NA24143 (HG004). Most software used in these analyses were installed using Linuxbrew [@Jackman_2016] with the command `brew install abyss arcs bwa lrsim miller minimap2 nxtrim samtools seqtk`. We used the development version of QUAST 5 revision 78806b2, which is capable of analyzing assemblies of large genomes using Minimap2 [@Li_2017].
+We repeated this analysis using Tigmint, ARCS, and QUAST with five other assemblies. We downloaded the reads assembled with DISCOVARdenovo and scaffolded using BESST [@Sahlin_2016] from NCBI, and the same DISCOVARdenovo contigs scaffolded using ABySS-Scaffold. We assembled the linked reads with Supernova 2.0.0 [@Weisenfeld_2017], which used neither the 2x250 paired-end reads nor mate-pair reads. We applied Tigmint and ARCS to two assemblies of single-molecule sequencing (SMS) reads. We downloaded PacBio reads assembled with Falcon from NCBI [@Chin_2016] and Oxford Nanopore reads assembled with Canu [@Jain_2018]. All assemblies are of the GIAB human sample HG004 except the Canu assembly, which is of NA12878.
+
+Most software used in these analyses were installed using Linuxbrew [@Jackman_2016] with the command `brew install abyss arcs bwa lrsim miller minimap2 nxtrim samtools seqtk`. We used the development version of QUAST 5 revision 78806b2, which is capable of analyzing assemblies of large genomes using Minimap2 [@Li_2017].
 
 # Results
 
@@ -153,22 +155,29 @@ Using single-molecule sequencing in combination with linked reads enables a geno
 | RAM: random access memory
 | RSS: resident set size
 | SMS: single-molecule sequencing
+| SRA: Sequence Read Archive
 
 # Availability of data and material
 
-The datasets generated and/or analysed during the current study are available from NCBI.
+The datasets generated and/or analysed during the current study are available from NCBI. The GIAB sample HG004 is also known as NA24143.
 
-10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium>
+HG004 Illumina mate-pair reads SRA SRR2832452–SRR283245 [@Zook_2016] <http://bit.ly/hg004-6kb> \
+or <small><ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/NIST_Stanford_Illumina_6kb_matepair/fastqs/></small>
+
+HG004 10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium> \
 or <ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/10Xgenomics_ChromiumGenome/NA24143.fastqs/>
 
-ABySS 2.0 and Discovar de novo assemblies [@Jackman_2017] <http://bit.ly/giab-hg004>
+HG004 ABySS 2.0 and Discovar de novo assemblies [@Jackman_2017] <http://bit.ly/giab-hg004> \
 or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/BCGSC_HG004_ABySS2.0_assemblies_12082016/>
 
-PacBio reads assembled with Falcon [@Zook_2016] <http://bit.ly/giab-falcon>
+HG004 PacBio reads assembled with Falcon [@Zook_2016] <http://bit.ly/giab-falcon> \
 or <https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/MtSinai_PacBio_Assembly_falcon_03282016/>
 
-Oxford Nanopore reads assembled with Canu [@Jain_2018]
+NA12878 Oxford Nanopore reads assembled with Canu [@Jain_2018] \
 <https://www.ncbi.nlm.nih.gov/assembly/GCA_900232925.1/>
+
+NA12878 10x Genomics Chromium linked reads \
+<https://support.10xgenomics.com/de-novo-assembly/datasets/2.0.0/wfu/>
 
 The script to run the data analysis is available online at <https://github.com/sjackman/tigmint-data>.
 
