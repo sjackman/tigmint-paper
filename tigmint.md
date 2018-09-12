@@ -86,52 +86,52 @@ Correcting the Supernova assembly of the HG004 linked reads with Tigmint reduces
 
 The assemblies of SMS reads have contig NGA50s in the megabases. Tigmint and ARCS together improve the scaffold NGA50 of the Canu assembly by more than double to nearly 11 Mbp and improve the scaffold NGA50 of the Falcon assembly by nearly triple to 12 Mbp, and both assemblies have fewer misassemblies than their original assembly, shown in @fig:metrics-sms. Thus, using Tigmint and ARCS together improves both the contiguity and correctness over the original assemblies. This result demonstrates that by using long reads in combination with linked reads, one can achieve an assembly quality that is not currently possible with either technology alone.
 
-![Assembly contiguity and correctness metrics with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left. Supernova used linked reads only, whereas the others used paired end and mate pair reads.](figures/metrics.png){#fig:metrics}
+![Assembly contiguity and correctness metrics of HG004 with and without correction using Tigmint prior to scaffolding with ARCS. The most contiguous and correct assemblies are found in the top-left. Supernova assembled linked reads only, whereas the others used paired end and mate pair reads.](figures/metrics.png){#fig:metrics}
 
-![Assemblies of Nanopore reads with Canu and PacBio reads with Falcon with and without correction using Tigmint prior to scaffolding with ARCS.](figures/metrics-sms.png){#fig:metrics-sms}
+![Assemblies of Oxford Nanopore sequencing of NA12878 with Canu and PacBio sequencing of HG004 with Falcon with and without correction using Tigmint prior to scaffolding with ARCS.](figures/metrics-sms.png){#fig:metrics-sms}
 
-Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. {#tbl:metrics}
+Table: The assembly contiguity (scaffold NG50 and NGA50) and correctness (number of misassemblies) metrics with and without correction using Tigmint prior to scaffolding with ARCS. ABySS and DISCOVARdenovo are assemblies of Illumina sequencing. Supernova is an assembly of linked read sequencing. Falcon is an assembly of PacBio sequencing. Canu is an assembly Oxford Nanopore sequencing. Data simulated with LRSim is assembled with ABySS. {#tbl:metrics}
 
-| Assembly                 | NG50 (Mbp) | NGA50 (Mbp) | Misassemblies |   Reduction |
-| ------------------------ | ---------: | ----------: | ------------: | ----------: |
-| ABySS                    |       3.65 |        3.09 |           790 |          NA |
-| ABySS+Tigmint            |       3.47 |        3.09 |           574 | 216 (27.3%) |
-| ABySS+ARCS               |       9.91 |        7.86 |           823 |          NA |
-| ABySS+Tigmint+ARCS       |      26.39 |       16.43 |           641 | 182 (22.1%) |
-| DISCO+ABySS              |      10.55 |        9.04 |           701 |          NA |
-| DISCO+ABySS+Tigmint      |      10.16 |        9.04 |           666 |   35 (5.0%) |
-| DISCO+ABySS+ARCS         |      29.20 |       17.05 |           829 |          NA |
-| DISCO+ABySS+Tigmint+ARCS |      35.31 |       23.68 |           804 |   25 (3.0%) |
-| DISCO+BESST              |       7.01 |        6.14 |           568 |          NA |
-| DISCO+BESST+Tigmint      |       6.77 |        6.14 |           493 |  75 (13.2%) |
-| DISCO+BESST+ARCS         |      27.64 |       15.14 |           672 |          NA |
-| DISCO+BESST+Tigmint+ARCS |      33.43 |       19.40 |           603 |  69 (10.3%) |
-| Supernova                |      38.48 |       12.65 |         1,005 |          NA |
-| Supernova+Tigmint        |      17.72 |       11.43 |           923 |   82 (8.2%) |
-| Supernova+ARCS           |      39.63 |       13.24 |         1,052 |          NA |
-| Supernova+Tigmint+ARCS   |      27.35 |       12.60 |           998 |   54 (5.1%) |
-| Falcon                   |       4.56 |        4.21 |         3,640 |          NA |
-| Falcon+Tigmint           |       4.45 |        4.21 |         3,444 |  196 (5.4%) |
-| Falcon+ARCS              |      18.14 |        9.71 |         3,801 |          NA |
-| Falcon+Tigmint+ARCS      |      22.52 |       11.97 |         3,574 |  227 (6.0%) |
-| Canu                     |       7.06 |        5.40 |         1,688 |          NA |
-| Canu+Tigmint             |       6.87 |        5.38 |         1,600 |   88 (5.2%) |
-| Canu+ARCS                |      19.70 |       10.12 |         1,736 |          NA |
-| Canu+Tigmint+ARCS        |      22.01 |       10.85 |         1,626 |  110 (6.3%) |
-| Simulated                |       9.00 |        8.28 |           272 |          NA |
-| Simulated+Tigmint        |       8.61 |        8.28 |           217 |  55 (20.2%) |
-| Simulated+ARCS           |      23.37 |       17.09 |           365 |          NA |
-| Simulated+Tigmint+ARCS   |      30.24 |       24.98 |           320 |  45 (12.3%) |
+| Sample    | Assembly                 | NG50 (Mbp) | NGA50 (Mbp) | Misass. |   Reduction |
+| --------- | ------------------------ | ---------: | ----------: | ------: | ----------: |
+| HG004     | ABySS                    |       3.65 |        3.09 |     790 |          NA |
+|           | ABySS+Tigmint            |       3.47 |        3.09 |     574 | 216 (27.3%) |
+|           | ABySS+ARCS               |       9.91 |        7.86 |     823 |          NA |
+|           | ABySS+Tigmint+ARCS       |      26.39 |       16.43 |     641 | 182 (22.1%) |
+| HG004     | DISCO+ABySS              |      10.55 |        9.04 |     701 |          NA |
+|           | DISCO+ABySS+Tigmint      |      10.16 |        9.04 |     666 |   35 (5.0%) |
+|           | DISCO+ABySS+ARCS         |      29.20 |       17.05 |     829 |          NA |
+|           | DISCO+ABySS+Tigmint+ARCS |      35.31 |       23.68 |     804 |   25 (3.0%) |
+| HG004     | DISCO+BESST              |       7.01 |        6.14 |     568 |          NA |
+|           | DISCO+BESST+Tigmint      |       6.77 |        6.14 |     493 |  75 (13.2%) |
+|           | DISCO+BESST+ARCS         |      27.64 |       15.14 |     672 |          NA |
+|           | DISCO+BESST+Tigmint+ARCS |      33.43 |       19.40 |     603 |  69 (10.3%) |
+| HG004     | Supernova                |      38.48 |       12.65 |   1,005 |          NA |
+|           | Supernova+Tigmint        |      17.72 |       11.43 |     923 |   82 (8.2%) |
+|           | Supernova+ARCS           |      39.63 |       13.24 |   1,052 |          NA |
+|           | Supernova+Tigmint+ARCS   |      27.35 |       12.60 |     998 |   54 (5.1%) |
+| HG004     | Falcon                   |       4.56 |        4.21 |   3,640 |          NA |
+|           | Falcon+Tigmint           |       4.45 |        4.21 |   3,444 |  196 (5.4%) |
+|           | Falcon+ARCS              |      18.14 |        9.71 |   3,801 |          NA |
+|           | Falcon+Tigmint+ARCS      |      22.52 |       11.97 |   3,574 |  227 (6.0%) |
+| NA12878   | Canu                     |       7.06 |        5.40 |   1,688 |          NA |
+|           | Canu+Tigmint             |       6.87 |        5.38 |   1,600 |   88 (5.2%) |
+|           | Canu+ARCS                |      19.70 |       10.12 |   1,736 |          NA |
+|           | Canu+Tigmint+ARCS        |      22.01 |       10.85 |   1,626 |  110 (6.3%) |
+| Simulated | ABySS                    |       9.00 |        8.28 |     272 |          NA |
+|           | ABySS+Tigmint            |       8.61 |        8.28 |     217 |  55 (20.2%) |
+|           | ABySS+ARCS               |      23.37 |       17.09 |     365 |          NA |
+|           | ABySS+Tigmint+ARCS       |      30.24 |       24.98 |     320 |  45 (12.3%) |
 
 \newpage
 
 The alignments of the ABySS assembly to the reference genome before and after Tigmint are visualized in @fig:jupiter using JupiterPlot [@URL_JupiterPlot]. A number of split alignments, likely misassemblies, are visible in the assembly before Tigmint, whereas after Tigmint no such split alignments are visible.
 
-![The alignments to the reference genome of the ABySS assembly before and after Tigmint. The reference chromosomes are on the left in colour, the assembly scaffolds on the right in grey. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter height=2.8in}
+![The alignments to the reference genome of the ABySS assembly of HG004 before and after Tigmint. The reference chromosomes are on the left in colour, the assembly scaffolds on the right in grey. No translocations are visible after Tigmint.](figures/jupiter.png){#fig:jupiter height=2.8in}
 
 The default maximum distance permitted between linked reads in a molecule is 50 kbp, which is the value used by the Long Ranger and Lariat tools of 10x Genomics. In our tests, values between 20 kbp and 100 kbp do not substantially affect the results, and values smaller than 20 kbp begin to disconnect linked reads that should be found in a single molecule. The effect of varying the window and spanning molecules parameters of Tigmint on the assembly contiguity and correctness metrics is shown in @fig:parameters. When varying the spanning molecules parameter, the window parameter is fixed at 2 kbp, and when varying the window parameter, the spanning molecules parameter is fixed at 20. The assembly metrics of the ABySS, DISCOVARdenovo + ABySS-Scaffold, and DISCOVARdenovo + BESST assemblies after correction with Tigmint are rather insensitive to the spanning molecules parameter for any value up to 50 and for the window parameter for any value up to 2 kbp. The parameter values of $\textrm{span} = 20$ and $\textrm{window} = 2000$ worked well for all of the tested assembly tools.
 
-![Effect of varying the window and span parameters on scaffold NGA50 and misassemblies.](figures/parameters.png){#fig:parameters height=2.8in}
+![Effect of varying the window and span parameters on scaffold NGA50 and misassemblies of three assemblies of HG004.](figures/parameters.png){#fig:parameters height=2.8in}
 
 We simulated 434 million 2x250 paired-end and 350 million 2x125 mate-pair read pairs using wgsim of samtools, and we simulated 524 million 2x150 linked read pairs using LRSim [@Luo_2017], emulating the HG004 data set. We assembled these reads using ABySS 2.0.2, and applied Tigmint and ARCS as before. The assembly metrics are shown in @tbl:metrics. We see similar performance to the real data: a 20% reduction in misassemblies after running Tigmint, and a three-fold increase in NGA50 after Tigmint and ARCS. Since no structural rearrangements are present in the simulated data, each misassembly identified by QUAST ought to be a true misassembly, allowing us to calculate precision and recall. For the parameters used with the real data, window = 2000 and span = 20, Tigmint makes 210 cuts in scaffolds at least 3 kbp (QUAST does not analyze shorter scaffolds), and corrects 55 misassemblies of the 272 identified by QUAST, yielding precision and recall of $\textrm{PPV} = \frac{55}{210} = 0.26$ and $\textrm{TPR} = \frac{55}{272} = 0.20$. Altering the window parameter to 1 kbp, Tigmint makes only 58 cuts, and yet it corrects 51 misassemblies, making its precision and recall $\textrm{PPV} = \frac{51}{58} = 0.88$ and $\textrm{TPR} = \frac{51}{272} = 0.19$, a marked improvement in precision with only a small decrease in recall. The scaffold NGA50 after ARCS is 24.7 Mbp, 1% less than with window = 2000. Since the final assembly metrics are similar, using a smaller value for the window size parameter may avoid unnecessary cuts. Small-scale misassemblies cannot be detected by Tigmint, such as collapsed repeats, and relocations and inversions smaller than a typical molecule.
 
