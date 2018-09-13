@@ -171,6 +171,8 @@ Using single-molecule sequencing in combination with linked reads enables a geno
 
 # Availability of data and material
 
+The script to run the data analysis is available online at <https://github.com/sjackman/tigmint-data>. Tigmint may be installed using PyPI, Bioconda [@Gr_ning_2018], Homebrew, or Linuxbrew [@Jackman_2016].
+
 The datasets generated and/or analysed during the current study are available from NCBI.
 
 HG004 Illumina mate-pair reads SRA SRR2832452–SRR283245 [@Zook_2016] <http://bit.ly/hg004-6kb> \
@@ -190,8 +192,6 @@ NA12878 Oxford Nanopore reads assembled with Canu [@Jain_2018] \
 
 NA12878 10x Genomics Chromium linked reads \
 <https://support.10xgenomics.com/de-novo-assembly/datasets/2.0.0/wfu/>
-
-The script to run the data analysis is available online at <https://github.com/sjackman/tigmint-data>.
 
 # Authors' contributions
 
