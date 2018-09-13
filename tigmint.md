@@ -6,7 +6,9 @@ csl: tigmint.csl
 rangeDelim: "&ndash;"
 eqnPrefix: "Equation"
 figPrefix: "Fig."
+lstPrefix: "Listing"
 tblPrefix: ["Table", "Tables"]
+codeBlockCaptions: True
 fontsize: 11pt
 geometry: margin=1in
 permalink: /
@@ -56,7 +58,25 @@ The user provides a draft assembly in FASTA format and the linked reads in FASTQ
 
 Physical molecule depth of coverage is defined as the number of molecules that span a point. A molecule spans a point when one of its reads aligns to the left of that point and another of its reads (with the same barcode) aligns to the right of that point. Regions with poor physical molecule coverage indicate potentially problematic regions of the assembly. At a misassembly involving a repeat, molecules may start in left flanking unique sequence and end in the repeat, and molecules may start in the repeat and end in right flanking unique sequence. This seemingly uninterrupted molecule coverage may give the appearance that the region is well covered by molecules. Closer inspection may reveal that no molecules span the repeat entirely, from the left flanking sequence to the right flanking sequence. Tigmint checks that each region of a fixed size specified by the user, 1000 bp by default, is spanned by a minimum number of molecules, 20 by default.
 
-Tigmint constructs an interval tree of the coordinates of the molecules using the Python package Intervaltree. The interval tree allows us to quickly identify and count the molecules that span a given region of the draft assembly. Regions that have a sufficient number of spanning molecules, 20 by default, are deemed well-covered, and regions that do not are deemed poorly-covered and reveal possible misassemblies. We inspect the molecule coverage of each contig with a sliding window of 1000 bp (by default) with a step size of 1 bp. Tigmint cuts the assembly after the last base of a well-covered window before a run of poorly-covered windows, and then cut the assembly again before the first base of the first well-covered window following that run of poorly-covered windows. The coordinates of these cut points are recorded in a BED file. The sequences of the draft assembly are split at these cut points, producing a corrected FASTA file.
+Tigmint constructs an interval tree of the coordinates of the molecules using the Python package Intervaltree. The interval tree allows us to quickly identify and count the molecules that span a given region of the draft assembly. Regions that have a sufficient number of spanning molecules, 20 by default, are deemed well-covered, and regions that do not are deemed poorly-covered and reveal possible misassemblies. We inspect the molecule coverage of each contig with a sliding window of 1000 bp (by default) with a step size of 1 bp. Tigmint cuts the assembly after the last base of a well-covered window before a run of poorly-covered windows, and then cut the assembly again before the first base of the first well-covered window following that run of poorly-covered windows, shown in @lst:algorithm. The coordinates of these cut points are recorded in a BED file. The sequences of the draft assembly are split at these cut points, producing a corrected FASTA file.
+
+Listing: A window of *w* bp spanned by at least *n* molecules is well covered. Use the interval tree *molecules* to identify regions that are not well covered by molecules. Return a set of positions (cut points) at which to split the contig. Interval coordinates are zero-based and half open.
+
+```{.python #lst:algorithm}
+determine_cutpoints = function(molecules, contig_length, n, w)
+	cutpoints = []
+	for i in [0, contig_length - w - 1)
+		interval_0 = [i, i + w)
+		interval_1 = [i + 1, i + w + 1)
+		count_0 = molecules.spanning(interval_0).count
+		count_1 = molecules.spanning(interval_1).count
+		if count_0 >= n and count_1 < n
+			cutpoints.insert(interval_0.end)
+		else
+		if count_0 < n and count_1 >= n
+			cutpoints.insert(interval_1.start)
+	return cutpoints
+```
 
 Tigmint will optionally run ARCS [@Yeo_2017] to scaffold these corrected sequences and improve the contiguity of the assembly. Tigmint will optionally compare the scaffolds to a reference genome, if one is provided, using QUAST [@Gurevich_2013] to compute contiguity (NGA50) and correctness (number of putative misassemblies) of the assemblies before Tigmint, after Tigmint, and after ARCS. Each misassembly identified by QUAST reveals a difference between the assembly and the reference, and may indicate a real misassembly or a structural variation between the reference and the sequenced genome. The NGA50 metric summarizes both assembly contiguity and correctness by computing the NG50 of the lengths of alignment blocks to a reference genome, correcting the contiguity metric by accounting for possible misassemblies. It however also penalizes sequences at points of true variation between the sequenced and reference genomes. The true but unknown contiguity of the assembly, which accounts for misassemblies but not for structural variation, therefore lies somewhere between the lower bound of NGA50 and the upper bound of NG50.
 
