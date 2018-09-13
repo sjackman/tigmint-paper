@@ -56,9 +56,9 @@ Tigmint will optionally run ARCS [@Yeo_2017] to scaffold these corrected sequenc
 
 # Evaluation
 
-We have evaluated the effectiveness of Tigmint on assemblies of both short and long read sequencing, including assemblies of Illumina paired-end and mate-pair sequencing using ABySS and DISCOVARdenovo, a Supernova assembly of linked reads, a Falcon assembly of PacBio sequencing, a Canu assembly of Oxford Nanopore sequencing, and an ABySS assembly of simulated Illumina sequencing (see @tbl:data). All assemblies are of the Genome in a Bottle (GIAB) human sample HG004, except the Canu assembly of human sample NA12878. The sample HG004 was selected for the variety of data types available, including Illumina 2x250 paired-end and mate-pair sequencing, linked reads, and PacBio sequencing [@Zook_2016]. NA12878 was selected for the availability of an assembly of Oxford Nanopore sequencing [@Jain_2018] as well as the linked read sequencing needed by Tigmint. See "Availability of data and material" to access the sequencing data and assemblies.
+We have evaluated the effectiveness of Tigmint on assemblies of both short and long read sequencing, including assemblies of Illumina paired-end and mate-pair sequencing using ABySS and DISCOVARdenovo, a Supernova assembly of linked reads, a Falcon assembly of PacBio sequencing, a Canu assembly of Oxford Nanopore sequencing, and an ABySS assembly of simulated Illumina sequencing (see @tbl:data). All assemblies are of the Genome in a Bottle (GIAB) human sample HG004, except the Canu assembly of human sample NA12878. The sample HG004 was selected for the variety of data types available, including Illumina 2x250 paired-end and mate-pair sequencing, linked reads, and PacBio sequencing [@Zook_2016]. NA12878 was selected for the availability of an assembly of Oxford Nanopore sequencing [@Jain_2018] as well as the linked read sequencing needed by Tigmint.
 
-Table: The sequencing data and assemblies used to evaluate Tigmint. {#tbl:data}
+Table: Genome assemblies of both short and long read sequencing were used to evaluate Tigmint. The GIAB sample HG004 is also known as NA24143. See "Availability of data and material" to access the sequencing data and assemblies. {#tbl:data}
 
 | Sample  | Sequencing      | Assembler      |
 |---------|-----------------|----------------|
@@ -171,7 +171,7 @@ Using single-molecule sequencing in combination with linked reads enables a geno
 
 # Availability of data and material
 
-The datasets generated and/or analysed during the current study are available from NCBI. The GIAB sample HG004 is also known as NA24143.
+The datasets generated and/or analysed during the current study are available from NCBI.
 
 HG004 Illumina mate-pair reads SRA SRR2832452–SRR283245 [@Zook_2016] <http://bit.ly/hg004-6kb> \
 or <small><ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/NIST_Stanford_Illumina_6kb_matepair/fastqs/></small>
