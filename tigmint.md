@@ -50,7 +50,7 @@ Tigmint first aligns reads to the assembly, and infers the extents of the large 
 
 # Methods
 
-Tigmint identifies misassembled regions of the assembly by inspecting the alignment of linked reads to the draft genome assembly. It first aligns the linked reads to the draft genome. It then groups linked reads with the same barcode into molecules (`tigmint-molecule`). Finally it identifies regions of the assembly that are not well supported by the linked reads, and cuts the contigs of the draft assembly at these positions (`tigmint-cut`). It may optionally scaffold the genome using ARCS [@Yeo_2017]. This analysis pipeline is shown in @fig:pipeline.
+Tigmint identifies misassembled regions of the assembly by inspecting the alignment of linked reads to the draft genome assembly. The command `tigmint-molecule` groups linked reads with the same barcode into molecules. The command `tigmint-cut` identifies regions of the assembly that are not well supported by the linked reads, and cuts the contigs of the draft assembly at these positions. Tigmint may optionally scaffold the genome using ARCS [@Yeo_2017]. A block diagram of the analysis pipeline is shown in @fig:pipeline.
 
 ![This block diagram shows the steps that Tigmint uses to identify misasemblies. Input files are shown in parallelograms. Intermediate files are shown in rectangles. Output files are shown in ovals. File foramts are shown in parentheses.](figures/pipeline.png){#fig:pipeline width=5in}
 
