@@ -209,7 +209,7 @@ The script to run the data analysis is available online at <https://github.com/s
 
 The datasets generated and/or analysed during the current study are available from NCBI.
 
-HG004 Illumina mate-pair reads SRA SRR2832452–SRR283245 [@Zook_2016] <http://bit.ly/hg004-6kb> \
+HG004 Illumina mate-pair reads SRA SRR2832452-SRR283245 [@Zook_2016] <http://bit.ly/hg004-6kb> \
 or <small><ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/HG004_NA24143_mother/NIST_Stanford_Illumina_6kb_matepair/fastqs/></small>
 
 HG004 10x Genomics Chromium linked reads [@Zook_2016] <http://bit.ly/giab-hg004-chromium> \
