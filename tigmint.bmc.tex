@@ -106,8 +106,8 @@ In \emph{de novo} sequencing projects, it is challenging yet important to ensure
 
 Tigmint first aligns linked reads to an assembly, and infers the extents of the large DNA molecules from these alignments. It then searches for atypical drops in physical molecule coverage, revealing the positions of possible misassemblies. It cuts the assembled sequences at these positions to improve assembly correctness. Linked reads may then be used again to scaffold the corrected assembly with ARCS {[}4{]} to identify contig ends sharing barcodes, and either ABySS-Scaffold (included with ABySS) or LINKS {[}14{]} to merge sequences of contigs into scaffolds.
 
-\hypertarget{methods}{%
-\section*{Methods}\label{methods}}
+\hypertarget{implementation}{%
+\section*{Implementation}\label{implementation}}
 
 Tigmint identifies misassembled regions of the assembly by inspecting the alignment of linked reads to the draft genome assembly. The command \texttt{tigmint-molecule} groups linked reads with the same barcode into molecules. The command \texttt{tigmint-cut} identifies regions of the assembly that are not well supported by the linked reads, and cuts the contigs of the draft assembly at these positions. Tigmint may optionally scaffold the genome using ARCS {[}4{]}. A block diagram of the analysis pipeline is shown in Fig.~\ref{fig:pipeline}.
 
@@ -115,7 +115,7 @@ Tigmint identifies misassembled regions of the assembly by inspecting the alignm
 \hypertarget{fig:pipeline}{%
 \centering
 \includegraphics[width=4.8in]{figures/pipeline.png}
-\caption{The block diagram of Tigmint. Input files are shown in parallelograms. Intermediate files are shown in rectangles. Output files are shown in ovals. File foramts are shown in parentheses.}\label{fig:pipeline}
+\caption{The block diagram of Tigmint. Input files are shown in parallelograms. Intermediate files are shown in rectangles. Output files are shown in ovals. File formats are shown in parentheses.}\label{fig:pipeline}
 }
 \end{figure}
 
